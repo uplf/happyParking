@@ -4,7 +4,7 @@
 
 void drive_init(){
 	//PWMÊä³ö
-	PWM_setIO(TIM4,0x04|0x08);
+	PWM_setIO(TIM4,0x02|0x04|0x08);
 	TIMER_setMODE(TIM4,100,36,TIM_CounterMode_Up);
 	PWM_setMODE(TIM4,0x01|0x02|0x04|0x08);
 
@@ -24,10 +24,28 @@ void drive_setPWM34(int16_t duty3,int16_t duty4){
 	drive_setPWM3(duty3);
 	drive_setPWM4(duty4);
 }
-void drive_DIFFsetPWM34(int16_t DIFFduty){
-	drive_setPWM34(BASIC_SPEEDR+DIFFduty,BASIC_SPEEDL-DIFFduty);
+void drive_setORI(short index){
+	drive_setPWM3(index*(index>0?BASIC_SPEEDLF:BASIC_SPEEDLB));
+	drive_invPWM4(index*(index>0?BASIC_SPEEDRF:BASIC_SPEEDRB));
 }
+void drive_setDir(int16_t diffSpeed){
+	drive_setDirPWM2(BASIC_TOWARDS+diffSpeed);
+}
+void drive_setDirPWM2(int16_t speed){
 
+	if(speed>=0){
+		drive_invPWM3(_DISABLE);
+		TIM_SetCompare2(TIM4,dutyPWM_calCCR(TIM4,speed,100));
+	}
+	else{
+		if(!INV_ABLE){
+			TIM_SetCompare2(TIM4,0);
+			return;
+		}
+		drive_invPWM3(_ENABLE);
+		TIM_SetCompare2(TIM4,dutyPWM_calCCR(TIM4,-speed,100));
+	}
+}
 
 void drive_setPWM3(int16_t speed){
 

@@ -11,10 +11,10 @@
 */
 
 /*******Section1:basic hardware Setup
-1.OLED_PINS
+
 */
 
-//OLED_PINS
+//1.OLED_PINS
 #define OLED_W_SCL_Pin GPIO_Pin_4
 #define OLED_W_SDA_Pin GPIO_Pin_3
 #define OLED_W_Port GPIOB
@@ -57,16 +57,21 @@
 #define MPU_SDA_PIN GPIO_Pin_11
 #define MPU_SCL_PIN GPIO_Pin_10
 //<MPU6050_I2C.h 12-15>to be altered
-//7.grey_CONFIG
+//7.grey_CONFIG <!disabled!>
 #define GREY_Port GPIOB
 #define GREY_SDA_PIN GPIO_Pin_11
 #define GREY_SCL_PIN GPIO_Pin_10
 
 
+
+
 /*******Section2:index Setup
 1.Speed*/
-#define BASIC_SPEEDL 50
-#define BASIC_SPEEDR 58
+#define BASIC_SPEEDLF 50
+#define BASIC_SPEEDRF 58
+#define BASIC_SPEEDLB 50
+#define BASIC_SPEEDRB 58
+#define BASIC_TOWARDS 50
 //1-100
 #define ALTER_UNIT 1
 #define INV_ABLE 1

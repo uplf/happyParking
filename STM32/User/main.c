@@ -10,9 +10,7 @@
 #include "map.h"
 #include "mpu6050.h"
 #include "inv_mpu.h"
-#include "grey.h"
 #include "userSetup.h"
-#include "W25Q64.h"
 #include "detCalc.h"
 #include "Interrupt.h"
 #include "LED.h"
@@ -36,7 +34,6 @@ void Setup(void){
 	drive_init();
 	MPU6050_Init();		//MPU6050≥ı ºªØ
 	MPU6050_DMP_Init();
-	GREY_init();
 	PIDgroupInit();
 	intInit();
 	LED_Init();
