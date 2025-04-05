@@ -19,7 +19,7 @@ typedef struct{
 }PIDgroup,PIDangle;
 
 void pidCalc(PIDgroup*,int16_t*);
-void DrivePidCalc(PIDgroup*,PIDgroup*,int16_t*,int16_t*);
+void DrivePidCalc(PIDgroup*,PIDgroup*,int16_t*,int16_t*,int16_t,int16_t);
 void PIDgroupInit();
 //void CirCal
 void CirCal(int16_t *);

@@ -79,7 +79,7 @@ void CirCalF(float *Ang){
 	if(*Ang<-180)*Ang+=360;
 }
 
-void DrivePidCalc(PIDgroup* RG,PIDgroup* LG,int16_t* RS,int16_t* LS){
+void DrivePidCalc(PIDgroup* RG,PIDgroup* LG,int16_t* RS,int16_t* LS,int16_t BASIC_SPEEDR,int16_t BASIC_SPEEDL){
 	int16_t tmp;
 	pidCalc(RG,&tmp);
 	*RS=BASIC_SPEEDR+tmp;

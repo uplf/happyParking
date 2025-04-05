@@ -287,6 +287,7 @@ uint8_t IIC_ReceiveAck(IIC_group g)
 	return AckBit;							//返回定义应答位变量
 }
 
+
 void SPI_setMODE(){
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);
 	

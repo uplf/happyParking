@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware;.\Hardware\Mpu6050;.\Hardware\W25Q;.\Hardware\USARTcmd</IncludePath>
+              <IncludePath>.\Start;.\Library;.\User;.\System;.\Hardware;.\Hardware\Mpu6050;.\Hardware\W25Q;.\Hardware\USARTcmd;.\Hardware\WIT</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -909,6 +909,31 @@
               <FileName>W25Q64_Ins.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Hardware\W25Q\W25Q64_Ins.h</FilePath>
+            </File>
+            <File>
+              <FileName>wit_c_sdk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\WIT\wit_c_sdk.c</FilePath>
+            </File>
+            <File>
+              <FileName>wit_c_sdk.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\WIT\wit_c_sdk.h</FilePath>
+            </File>
+            <File>
+              <FileName>wit_REG.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\WIT\wit_REG.h</FilePath>
+            </File>
+            <File>
+              <FileName>wit_IOI2C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\WIT\wit_IOI2C.c</FilePath>
+            </File>
+            <File>
+              <FileName>wit_IOI2C.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\WIT\wit_IOI2C.h</FilePath>
             </File>
           </Files>
         </Group>

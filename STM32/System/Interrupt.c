@@ -6,6 +6,7 @@
 #include "grey.h"
 #include "drive.h"
 #include "Interrupt.h"
+#include "userSetup.h"
 
 
 //巡线中断
@@ -27,35 +28,23 @@ void TIM3_IRQHandler(void)
 	
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update) == SET)
 	{
-		MPU6050_DMP_Get_Data(&Pitch,&Roll,&Yaw);//检测MPU6050并完成角度解算
-		GREY_init();
-		GREY_ISINDEX=grey_scancal(&GREY_INDEX);
-		grey_recal(&GREY_INDEX);
-		PIN_writeBIT(GPIOC,GPIO_Pin_13,GREY_ISINDEX&0x01);
-		PIN_writeBIT(GPIOC,GPIO_Pin_14,GREY_ISINDEX&0x02);
+		#ifdef USING_MPU6050
+			MPU6050_DMP_Get_Data(&Pitch,&Roll,&Yaw);//检测MPU6050并完成角度解算
+			GREY_init();
+			GREY_ISINDEX=grey_scancal(&GREY_INDEX);
+			grey_recal(&GREY_INDEX);
+			PIN_writeBIT(GPIOC,GPIO_Pin_13,GREY_ISINDEX&0x01);
+			PIN_writeBIT(GPIOC,GPIO_Pin_14,GREY_ISINDEX&0x02);
 		
-		GreyLeft.current=GREY_INDEX;
-		GreyRight.current=GREY_INDEX;
-		AngleLeft.current=Yaw;
-		AngleRight.current=Yaw;
+			GreyLeft.current=GREY_INDEX;
+			GreyRight.current=GREY_INDEX;
+			AngleLeft.current=Yaw;
+			AngleRight.current=Yaw;
+		#endif
 		
-		//角度PID
+
+
 		
-		switch(RunMode){
-			case 0:{
-				drive_setPWM34(0,0);
-				break;
-			}
-			case 1:{
-				DrivePidCalc(&GreyRight,&GreyLeft,&SpeedR,&SpeedL);
-				drive_setPWM34(SpeedR,SpeedL);
-				break;
-			}
-			case 2:{
-				DrivePidCalc(&AngleRight,&AngleLeft,&SpeedR,&SpeedL);
-				drive_setPWM34(SpeedR,SpeedL);
-			}
-		}
 		//控制
 
 		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);

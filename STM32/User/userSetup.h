@@ -20,6 +20,9 @@
 #define OLED_W_Port GPIOB
 
 //2.TB6612 conf_PINS
+//#define USING_TB6612
+#define USING_WIT
+
 #define DRIVE_AIN1_GROUP GPIOB
 #define DRIVE_AIN2_GROUP GPIOB
 #define DRIVE_BIN1_GROUP GPIOB
@@ -28,6 +31,7 @@
 #define DRIVE_AIN2_PIN GPIO_Pin_15
 #define DRIVE_BIN1_PIN GPIO_Pin_13
 #define DRIVE_BIN2_PIN GPIO_Pin_12
+
 
 
 //3.CONFIG
@@ -57,6 +61,10 @@
 #define MPU_SDA_PIN GPIO_Pin_11
 #define MPU_SCL_PIN GPIO_Pin_10
 //<MPU6050_I2C.h 12-15>to be altered
+#define WIT_Port GPIOB
+#define WIT_SDA_PIN GPIO_Pin_11
+#define WIT_SCL_PIN GPIO_Pin_10
+
 //7.grey_CONFIG <!disabled!>
 #define GREY_Port GPIOB
 #define GREY_SDA_PIN GPIO_Pin_11
@@ -79,14 +87,7 @@
 
 /********Section3:全局变量
 */
-extern int8_t GREY_INDEX,GREY_ISINDEX;
 
-extern int16_t SpeedR;
-extern int16_t SpeedL;
-extern float Pitch,Roll,Yaw,TargetAngle;
-extern int8_t wytest;
-extern float StartAngle;
-extern int8_t RunMode;
 
 
 

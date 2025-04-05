@@ -1,5 +1,19 @@
 #include "stm32f10x.h"
 
+
+
+
+static uint16_t  fac_us=0;
+static uint16_t fac_ms=0;
+
+static volatile uint32_t sv_uiDelay = 0;
+void SysTick_Init(void)
+{	
+	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8);
+	fac_us=SystemCoreClock/8000000;
+	fac_ms=(uint16_t)fac_us*1000;
+}
+
 /**
   * @brief  微秒级延时
   * @param  xus 延时时长，范围：0~233015
