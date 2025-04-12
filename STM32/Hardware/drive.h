@@ -10,8 +10,8 @@
 
 void drive_init();
 //<following>调整前后转
-void drive_setORI(short);//0-stop 1-forwards -1-backwards
-void drive_setDirPWM2(int16_t);
+void drive_setORI(short);//0-stop 1~5forwards -1~-5backwards
+void drive_setDirPWM2(int16_t);//scope:-50~50
 void drive_setDir(int16_t);
 
 
@@ -23,6 +23,7 @@ void drive_invPWM4(int8_t);
 //同时调速
 void drive_setPWM34(int16_t,int16_t);
 
-
+void PWM_Init(void);
+void PWM_SetCompare2(uint16_t Compare);
 
 #endif

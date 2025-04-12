@@ -79,7 +79,7 @@
 #define BASIC_SPEEDRF 58
 #define BASIC_SPEEDLB 50
 #define BASIC_SPEEDRB 58
-#define BASIC_TOWARDS 50
+#define BASIC_TOWARDS 1600
 //1-100
 #define ALTER_UNIT 1
 #define INV_ABLE 1

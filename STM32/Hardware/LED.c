@@ -12,10 +12,9 @@ void LED_Init(void)
 	PIN_writeBIT(GPIOC,GPIO_Pin_13|GPIO_Pin_14,_LOW);
 }
 
-void LED_Blink(void){
-	TIM_Cmd(TIM3,DISABLE);
-	PIN_writeBIT(GPIOC,GPIO_Pin_13,_HIGH);
-	Delay_ms(1000);
-	PIN_writeBIT(GPIOC,GPIO_Pin_13,_LOW);
-	TIM_Cmd(TIM3,ENABLE);
-}
+void LED1_ON(void){PIN_writeBIT(GPIOC,GPIO_Pin_13,_HIGH);}
+void LED1_OFF(void){PIN_writeBIT(GPIOC,GPIO_Pin_13,_LOW);}
+void LED1_Turn(void){PIN_writeBIT(GPIOC,GPIO_Pin_13,!PIN_readBIT(GPIOC,GPIO_Pin_13));}
+void LED2_ON(void){PIN_writeBIT(GPIOC,GPIO_Pin_14,_HIGH);}
+void LED2_OFF(void){PIN_writeBIT(GPIOC,GPIO_Pin_14,_LOW);}
+void LED2_Turn(void){PIN_writeBIT(GPIOC,GPIO_Pin_14,!PIN_readBIT(GPIOC,GPIO_Pin_14));}

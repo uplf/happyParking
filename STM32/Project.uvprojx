@@ -761,16 +761,6 @@
               <FilePath>.\Hardware\OLED_Font.h</FilePath>
             </File>
             <File>
-              <FileName>hwCONFIGgen.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\hwCONFIGgen.c</FilePath>
-            </File>
-            <File>
-              <FileName>hwCONFIGgen.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hardware\hwCONFIGgen.h</FilePath>
-            </File>
-            <File>
               <FileName>drive.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Hardware\drive.c</FilePath>
@@ -781,24 +771,24 @@
               <FilePath>.\Hardware\drive.h</FilePath>
             </File>
             <File>
-              <FileName>grey.c</FileName>
+              <FileName>openMV.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Hardware\grey.c</FilePath>
+              <FilePath>.\Hardware\openMV.c</FilePath>
             </File>
             <File>
-              <FileName>grey.h</FileName>
+              <FileName>openMV.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Hardware\grey.h</FilePath>
+              <FilePath>.\Hardware\openMV.h</FilePath>
             </File>
             <File>
-              <FileName>USARTcmd.c</FileName>
+              <FileName>happyTest.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Hardware\USARTcmd\USARTcmd.c</FilePath>
+              <FilePath>.\Hardware\happyTest.c</FilePath>
             </File>
             <File>
-              <FileName>USARTcmd.h</FileName>
+              <FileName>happyTest.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\Hardware\USARTcmd\USARTcmd.h</FilePath>
+              <FilePath>.\Hardware\happyTest.h</FilePath>
             </File>
           </Files>
         </Group>

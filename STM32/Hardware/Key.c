@@ -1,4 +1,3 @@
-#include "stm32f10x.h"                  // Device header
 #include "Delay.h"
 #include "CONFgeneral.h"
 #include "userSetup.h"
@@ -10,8 +9,10 @@
   * 参    数：无
   * 返 回 值：无
   */
-	int key_num=0;
-	
+
+int key_num=0;
+FunctionalState OPT_MODE=0;
+
 void Key_Init(void)
 {
 	PIN_setMODE(KEY_1_Port,KEY_1_PIN,GPIO_Mode_IPU);
@@ -20,6 +21,9 @@ void Key_Init(void)
 
 }
 
+void Opt_Cmd(FunctionalState c){
+	OPT_MODE=c;
+}
 
 
 /**
@@ -117,8 +121,7 @@ void EXTI1_IRQHandler(void)
 		{
 			if (GPIO_ReadInputDataBit(ENCODER_Port, ENCODERb_PIN) == 0)		//PB0的下降沿触发中断，此时检测另一相PB1的电平，目的是判断旋转方向
 			{
-
-				Encoder_Count --;					//此方向定义为反转，计数变量自减
+				
 
 			}
 		}
@@ -150,7 +153,6 @@ void EXTI9_5_IRQHandler(void)
 			if (GPIO_ReadInputDataBit(ENCODER_Port, ENCODERa_PIN) == 0)		//PB1的下降沿触发中断，此时检测另一相PB0的电平，目的是判断旋转方向
 			{
 
-				Encoder_Count ++;					//此方向定义为正转，计数变量自增
 			}
 		}
 		EXTI_ClearITPendingBit(EXTI_Line5);			//清除外部中断1号线的中断标志位
@@ -159,3 +161,5 @@ void EXTI9_5_IRQHandler(void)
 
 	}
 }
+
+

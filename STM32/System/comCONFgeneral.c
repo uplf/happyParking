@@ -4,6 +4,7 @@ USART_TypeDef*  USART_printf=USART1;
 uint8_t Serial_TxPacket[4];				//定义发送数据包数组，数据包格式：FF 01 02 03 04 FE
 uint8_t Serial_RxPacket[4];				//定义接收数据包数组
 uint8_t Serial_RxFlag;					//定义接收数据包标志位
+uint8_t Serial2_RxFlag;					//定义接收数据包标志位
 
 void USART_setMODE(USART_TypeDef* USARTx,uint32_t BR)
 {

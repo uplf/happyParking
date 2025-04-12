@@ -1,14 +1,14 @@
 #include "userSetup.h"
 #include "detCalc.h"
+#include "openMV.h"
 
-int8_t GREY_INDEX,GREY_ISINDEX=0;
+
 int16_t SpeedR=BASIC_SPEEDRF;
 int16_t SpeedL=BASIC_SPEEDLF;
 
-PIDgroup GreyLeft;
-PIDgroup GreyRight;
 
 PIDangle AngleLeft;
 PIDangle AngleRight;
 
-
+uint8_t openMV1_mes=0;
+uint8_t openMV2_mes=0;

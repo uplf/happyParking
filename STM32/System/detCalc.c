@@ -3,27 +3,7 @@
 
 
 void PIDgroupInit(){
-	//Ñ²ÏßPID
-	GreyLeft.target=0;
-	GreyRight.target=0;
-	GreyLeft.P=-16;
-	GreyLeft.I=0;
-	GreyLeft.D=0;
-	
-	GreyRight.P=16;
-	GreyRight.I=0;
-	GreyRight.D=0;
-	
-	GreyLeft.IntegralError=0;
-	GreyLeft.LastError=0;
-	GreyLeft.PrevError=0;
-	GreyLeft.current=0;
-	
-	GreyRight.IntegralError=0;
-	GreyRight.LastError=0;
-	GreyRight.PrevError=0;
-	GreyRight.current=0;
-	
+
 	//½Ç¶ÈPID
 	AngleLeft.circleCalc=1;
 	AngleRight.circleCalc=1;

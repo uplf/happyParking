@@ -25,8 +25,6 @@ void PIDgroupInit();
 void CirCal(int16_t *);
 void CirCalF(float *);
 
-extern PIDgroup GreyLeft;
-extern PIDgroup GreyRight;
 
 extern PIDangle AngleLeft;
 extern PIDangle AngleRight;
