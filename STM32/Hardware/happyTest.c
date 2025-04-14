@@ -79,3 +79,22 @@ void hardwareTest(){
 	PIDgroupInit();
 	intInit();
 }
+
+void openMVTest(){
+	openMV_init();
+	OLED_ShowString(1,1,"openMV_Test 1");
+	OLED_ShowString(4,1,"pressAnyKey ");
+	OLED_ShowString(2,1,"rec1:");
+	OLED_ShowString(3,1,"rec2:");
+	openMV1_send(TEST_SIG);
+	while(!Key_GetNum()){
+		OLED_ShowNum(2,6,openMV1_mes,4);
+	}
+	openMV1_send(TESTEND_SIG);
+	
+	openMV2_send(TEST_SIG);
+	while(!Key_GetNum()){
+		OLED_ShowNum(2,6,openMV2_mes,4);
+	}
+	openMV2_send(TESTEND_SIG);
+}

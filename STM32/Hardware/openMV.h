@@ -5,6 +5,9 @@
 #include "CONFgeneral.h"
 #include "stm32f10x.h"                  // Device header
 
+#define TEST_SIG 0x01
+#define TESTEND_SIG 0x02
+
 
 
 #define openMV1_send(x)  (SERIAL_sendBYTE(USART1, (x)))

@@ -14,6 +14,7 @@
 #include "Interrupt.h"
 #include "LED.h"
 #include "happyTest.h"
+#include "openMV.h"
 //end of test area
 
 
@@ -32,6 +33,7 @@ void Setup(void){
 	PIDgroupInit();
 	intInit();
 	LED_Init();
+	openMV_init();
 	//W25Q64_Init();
 
 }

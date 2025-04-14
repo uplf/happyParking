@@ -16,7 +16,10 @@
 #include "detCalc.h"
 #include "Interrupt.h"
 #include "LED.h"
+#include "openMV.h"
 
 
 void hardwareTest();
+void openMVTest();
+
 #endif

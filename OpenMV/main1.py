@@ -8,6 +8,23 @@ sensor.skip_frames(time = 2000)
 clock = time.clock()
 uart = pyb.UART(3, 115200)
 state=[]
+
+
+
+def uart_scan():
+	if uart.any():
+		uart_rec=uart.readline().decode().strip()
+		return uart_rec
+	else :
+		return 0
+
+def usart_test():
+	for i in range(16):
+		uart.write(i)
+		if(uart_scan()==2):
+			return
+	return
+
 def Receive_Data(data):
 	if data == "1":
 		state.append("a")
@@ -21,5 +38,4 @@ while True:
 	if uart.any():
 		a=uart.readline().decode().strip()
 		print(a)
-		uart.write("Hello World!\r")
 		Receive_Data(a)
