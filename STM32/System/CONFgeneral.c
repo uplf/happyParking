@@ -73,7 +73,7 @@ int8_t timerINT_preset(TIM_TypeDef* TIMx)
 
 int8_t usartINT_set(USART_TypeDef* USARTx)
 {
-	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);			//开启串口接收数据的中断
+	USART_ITConfig(USARTx, USART_IT_RXNE, ENABLE);			//开启串口接收数据的中断
 	return USARTxtoIRQn(USARTx);
 }
 

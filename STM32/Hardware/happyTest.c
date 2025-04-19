@@ -91,7 +91,7 @@ void openMVTest(){
 	//openMV2_send(TEST_SIG);
 	while(n!=3){
 		n=Key_GetNum();
-		if(n==1)SERIAL_sendBYTE(USART1,TEST_SIG);
+		if(n==1)SERIAL_sendBYTE(USART3,TEST_SIG);
 		if(n==2)SERIAL_sendBYTE(USART1,TESTEND_SIG);
 		OLED_ShowNum(2,6,openMV1_mes,8);
 		OLED_ShowNum(3,6,openMV2_mes,8);

@@ -27,12 +27,12 @@ void Setup(void){
 	Key_Init();
 	reuse_init();
 	OLED_Init();
-	drive_init();
-	MPU6050_Init();		//MPU6050初始化
-	MPU6050_DMP_Init();
-	PIDgroupInit();
-	intInit();
-	LED_Init();
+	//drive_init();
+	//MPU6050_Init();		//MPU6050初始化
+	//MPU6050_DMP_Init();
+	//PIDgroupInit();
+	//intInit();
+	//LED_Init();
 	openMV_init();
 	//W25Q64_Init();
 
@@ -69,7 +69,6 @@ void resetStartAngle(){
 	MPU6050_DMP_Get_Data(&Pitch,&Roll,&Yaw);
 	OLED_ShowSignedNum(1,1,Yaw,5);
 	OLED_ShowSignedNum(2,1,StartAngle,5);
-	
 	TIM_Cmd(TIM3,ENABLE);
 }
 

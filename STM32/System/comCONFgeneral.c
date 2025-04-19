@@ -18,7 +18,7 @@ void USART_setMODE(USART_TypeDef* USARTx,uint32_t BR)
 	else if(USARTx==USART2){
 		PIN_setMODE(GPIOA,GPIO_Pin_2,GPIO_Mode_AF_PP);
 		PIN_setMODE(GPIOA,GPIO_Pin_3,GPIO_Mode_IPU);
-		RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);	//开启USART1的时钟
+		RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
 	}
 	else if(USARTx==USART3){
 		PIN_setMODE(GPIOB,GPIO_Pin_10,GPIO_Mode_AF_PP);
@@ -34,7 +34,7 @@ void USART_setMODE(USART_TypeDef* USARTx,uint32_t BR)
 	USART_InitStructure.USART_Parity = USART_Parity_No;		//奇偶校验，不需要
 	USART_InitStructure.USART_StopBits = USART_StopBits_1;	//停止位，选择1位
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;		//字长，选择8位
-	USART_Init(USART1, &USART_InitStructure);				//将结构体变量交给USART_Init，配置USART1
+	USART_Init(USARTx, &USART_InitStructure);				//将结构体变量交给USART_Init，配置USART1
 
 }
 
@@ -45,6 +45,7 @@ void USART_setMODE(USART_TypeDef* USARTx,uint32_t BR)
   */
 void SERIAL_sendBYTE(USART_TypeDef* USARTx,uint8_t Byte)
 {
+	
 	USART_SendData(USARTx, Byte);		//将字节数据写入数据寄存器，写入后USART自动生成时序波形
 	while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET);	//等待发送完成
 	/*下次写入数据寄存器会自动清除发送完成标志位，故此循环后，无需清除标志位*/

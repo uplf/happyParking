@@ -212,6 +212,7 @@ uint32_t ADCxtoRCC_Periph(ADC_TypeDef *ADCx)
 
 int32_t USARTxtoIRQn(USART_TypeDef *USARTx)
 {
+
     if (USARTx == USART1)
         return USART1_IRQn;
     else if (USARTx == USART2)
