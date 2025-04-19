@@ -21,5 +21,6 @@
 
 void hardwareTest();
 void openMVTest();
+extern int testFlag;
 
 #endif

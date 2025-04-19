@@ -81,20 +81,23 @@ void hardwareTest(){
 }
 
 void openMVTest(){
+	int m=0,n=0;
 	openMV_init();
 	OLED_ShowString(1,1,"openMV_Test 1");
-	OLED_ShowString(4,1,"pressAnyKey ");
+	//OLED_ShowString(4,1,"pressAnyKey ");
 	OLED_ShowString(2,1,"rec1:");
 	OLED_ShowString(3,1,"rec2:");
-	openMV1_send(TEST_SIG);
-	while(!Key_GetNum()){
-		OLED_ShowNum(2,6,openMV1_mes,4);
+	//openMV1_send(TEST_SIG);
+	//openMV2_send(TEST_SIG);
+	while(n!=3){
+		n=Key_GetNum();
+		if(n==1)SERIAL_sendBYTE(USART1,TEST_SIG);
+		if(n==2)SERIAL_sendBYTE(USART1,TESTEND_SIG);
+		OLED_ShowNum(2,6,openMV1_mes,8);
+		OLED_ShowNum(3,6,openMV2_mes,8);
+		OLED_ShowNum(4,1,testFlag,5);
+		OLED_ShowNum(4,7,m,1);
+		m=!m;
 	}
-	openMV1_send(TESTEND_SIG);
-	
-	openMV2_send(TEST_SIG);
-	while(!Key_GetNum()){
-		OLED_ShowNum(2,6,openMV2_mes,4);
-	}
-	openMV2_send(TESTEND_SIG);
+
 }

@@ -11,10 +11,7 @@
 //Ñ²ÏßÖÐ¶Ï
 
 void intInit(){
-	EXTI_setGROUP(NVIC_PriorityGroup_2);
-	freqTIMER_setMODE(TIM3,5,TIM_CounterMode_Up);
-	INT_setNVIC(timerINT_preset(TIM3),1,1,ENABLE);
-	TIM_Cmd(TIM3,ENABLE);
+
 }
 
 void TIM3_IRQHandler(void)
