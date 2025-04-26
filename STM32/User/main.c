@@ -49,12 +49,13 @@ int main(void)
 {
 	Setup();
 	while(1){
-		OLED_ShowNum(2,1,openMV1_mes,3);
-		Delay_ms(100);
-		/*
+		
 		Delay_ms(UPSampleRate);
 		pidCalc(&UPPID,&UPLF_DIR);
-		drive_setDir(UPLF_DIR);*/
+		UPPID.current=openMV1_mes;
+		OLED_ShowNum(2,1,openMV1_mes,3);
+		OLED_ShowNum(3,1,UPLF_DIR,3);
+		drive_setDir(UPLF_DIR);
 	}
 	//openMVTest();
 }

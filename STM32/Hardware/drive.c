@@ -34,6 +34,8 @@ void drive_setORI(short index){
 	drive_setPWM4(index*(index>0?BASIC_SPEEDRF:BASIC_SPEEDRB)/5);
 }
 void drive_setDir(int16_t IND){
+	IND=IND>50?50:IND;
+	IND=IND<-50?-50:IND;
 	drive_setDirPWM2(BASIC_TOWARDS+IND * 16);
 }
 void drive_setDirPWM2(int16_t CPR){

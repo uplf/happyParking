@@ -1,6 +1,7 @@
 #include "openMV.h"
 
 
+
 void openMV_init(){
 	//´®¿ÚÅäÖÃ
 	USART_setMODE(USART1,115200);
