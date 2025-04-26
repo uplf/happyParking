@@ -51,9 +51,7 @@
 #define ENCODERa_PIN GPIO_Pin_1
 #define ENCODERb_PIN GPIO_Pin_5
 
-//5.communication_CONFIG
 
-#define CMD_USART USART1
 
 
 //6.MPU6050_CONFIG
@@ -84,11 +82,13 @@
 #define ALTER_UNIT 1
 #define INV_ABLE 1
 
+//
+#define UPSampleRate 2
 
 /********Section3:全局变量
 */
 
-
+extern int16_t UPLF_DIR;
 
 
 

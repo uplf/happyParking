@@ -16,16 +16,20 @@ typedef struct{
 	float target;
 	float current;
 	int8_t circleCalc;
-}PIDgroup,PIDangle;
+}PIDgroup;
 
 void pidCalc(PIDgroup*,int16_t*);
-void DrivePidCalc(PIDgroup*,PIDgroup*,int16_t*,int16_t*,int16_t,int16_t);
 void PIDgroupInit();
+//distCal
+extern int16_t openMV1_dist;
+#define distCal() openMV1_dist=openMV1_mes
 //void CirCal
 void CirCal(int16_t *);
 void CirCalF(float *);
 
 
-extern PIDangle AngleLeft;
-extern PIDangle AngleRight;
+
+extern PIDgroup UPPID;
+
+
 #endif

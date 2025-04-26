@@ -27,12 +27,12 @@ void Setup(void){
 	Key_Init();
 	reuse_init();
 	OLED_Init();
-	//drive_init();
+	drive_init();
 	//MPU6050_Init();		//MPU6050³õÊ¼»¯
 	//MPU6050_DMP_Init();
-	//PIDgroupInit();
-	//intInit();
-	//LED_Init();
+	PIDgroupInit();
+	intInit();
+	LED_Init();
 	openMV_init();
 	//W25Q64_Init();
 
@@ -43,11 +43,18 @@ float Pitch,Roll,Yaw;								//¸©Ñö½ÇÄ¬ÈÏ¸úÖÐÖµÒ»Ñù£¬·­¹ö½Ç£¬Æ«º½½Ç
 float StartAngle;
 int8_t RunMode;
 
+
+
 int main(void)
 {
 
 	Setup();
-	openMVTest();
+	while(1){
+		Delay_ms(UPSampleRate);
+		pidCalc(&UPPID,&UPLF_DIR);
+		drive_setDir(UPLF_DIR);
+	}
+	//openMVTest();
 	
 	
 }
