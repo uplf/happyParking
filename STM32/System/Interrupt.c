@@ -16,7 +16,6 @@ void intInit(){
 
 void TIM3_IRQHandler(void)
 {
-	
 	//MPU6050 scan->mpuINDEX
 	//grey scan->greyINDEX
 	//runMode->1 ;->2 ;->0

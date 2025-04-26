@@ -47,19 +47,19 @@ int8_t RunMode;
 
 int main(void)
 {
-
 	Setup();
 	while(1){
+		OLED_ShowNum(2,1,openMV1_mes,3);
+		Delay_ms(100);
+		/*
 		Delay_ms(UPSampleRate);
 		pidCalc(&UPPID,&UPLF_DIR);
-		drive_setDir(UPLF_DIR);
+		drive_setDir(UPLF_DIR);*/
 	}
 	//openMVTest();
-	
-	
 }
-
 void resetStartAngle(){
+
 		TIM_Cmd(TIM3,DISABLE);
 
 	//½Ç¶ÈPID
