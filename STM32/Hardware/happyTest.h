@@ -21,6 +21,7 @@
 
 void hardwareTest();
 void openMVTest();
+void ServoScope();
 extern int testFlag;
 
 #endif

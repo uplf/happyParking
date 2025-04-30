@@ -45,17 +45,28 @@ int8_t RunMode;
 
 
 
+
 int main(void)
 {
 	Setup();
 	while(1){
-		
+		ServoScope();
+		drive_setDir(0); 
+		Delay_ms(1000);
+		drive_setDir(50); 
+		Delay_ms(1000);
+		drive_setDir(-50);
+		Delay_ms(1000); 
+		/*
+		Delay_ms(200);
 		Delay_ms(UPSampleRate);
 		pidCalc(&UPPID,&UPLF_DIR);
 		UPPID.current=openMV1_mes;
 		OLED_ShowNum(2,1,openMV1_mes,3);
-		OLED_ShowNum(3,1,UPLF_DIR,3);
+		OLED_ShowSignedNum(3,1,UPLF_DIR,5);
 		drive_setDir(UPLF_DIR);
+		*/
+		
 	}
 	//openMVTest();
 }

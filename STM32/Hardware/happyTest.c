@@ -101,3 +101,29 @@ void openMVTest(){
 	}
 
 }
+
+
+void ServoScope(){
+	int16_t servoIND=0;
+	int8_t keyIND=0;
+	while(1){
+		keyIND=Key_GetNum();
+		switch(keyIND)
+		{
+			case 0:
+				continue;
+			case 1:{
+				servoIND+=100;
+				break;
+			}
+			case 2:{
+				servoIND-=1;
+				break;
+			}
+			case 3:servoIND+=5;
+		}
+		OLED_ShowSignedNum(3,1,servoIND,5);
+		drive_setDirPWM2(servoIND);
+		
+	}
+}
