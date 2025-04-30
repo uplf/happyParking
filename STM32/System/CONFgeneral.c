@@ -137,7 +137,7 @@ void PWM_setIO(TIM_TypeDef* TIMx,uint16_t AF_INDEX){
 uint16_t dutyPWM_calCCR(TIM_TypeDef* TIMx,uint16_t duty,uint16_t ARR)
 {
 	uint16_t out=(duty<100)?(ARR+1)*duty/100:ARR;
-	OLED_ShowNum(4,1,out,5);
+	
 	return out;
 }
 
