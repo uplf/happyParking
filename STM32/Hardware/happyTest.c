@@ -113,17 +113,17 @@ void ServoScope(){
 			case 0:
 				continue;
 			case 1:{
-				servoIND+=100;
+				servoIND+=5;
 				break;
 			}
 			case 2:{
-				servoIND-=1;
+				servoIND+=1;
 				break;
 			}
-			case 3:servoIND+=5;
+			case 3:servoIND-=5;
 		}
 		OLED_ShowSignedNum(3,1,servoIND,5);
-		drive_setDirPWM2(servoIND);
+		drive_setDir(servoIND);
 		
 	}
 }

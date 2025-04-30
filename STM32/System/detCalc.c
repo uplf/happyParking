@@ -7,7 +7,7 @@ void PIDgroupInit(){
 	//½Ç¶ÈPID
 	UPPID.circleCalc=0;
 	
-	UPPID.P=-0.7;
+	UPPID.P=0.7;
 	UPPID.I=0;
 	UPPID.D=0;
 

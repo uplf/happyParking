@@ -7,7 +7,7 @@ import sensor, image, time
 from pyb import UART
 # For color tracking to work really well you should ideally be in a very, very,
 # very, controlled enviroment where the lighting is constant...
-line_threshold   = (0, 32)
+line_threshold   = (0, 110)
 # You may need to tweak the above settings for tracking green things...
 # Select an area in the Framebuffer to copy the color settings.
 
@@ -28,7 +28,7 @@ while(True):
     clock.tick() # Track elapsed milliseconds between snapshots().
     img = sensor.snapshot()#.lens_corr(strength = 1.5, zoom = 1.2)
     #img = sensor.snapshot() # Take a picture and return the image.
-    img.draw_rectangle(60, 10, 30,80, color=(255,0,0), thickness=2)
+    #img.draw_rectangle(60, 10, 30,60, color=(255,0,0), thickness=2)
     blobs = img.find_blobs([line_threshold], pixels_threshold=100,roi=(60, 10, 30, 80))
     if len(blobs) == 1:
         # Draw a rect around the blob.
@@ -38,10 +38,11 @@ while(True):
         Lm = (b[2]+b[3])/2
         length = K/Lm
         length_int=int(length)
-        print(b[6]*1.7148+29.407)
+        dist= b[6]*1.7148+29.407
+        print(dist)
         #print(length)
         #print(length_int)
-        #uart.write(bytearray([length_int]))  # 发送一个字节
+        uart.write(bytearray([int(dist)]))  # 发送一个字节
 
 
     #print(clock.fps()) # Note: Your OpenMV Cam runs about half as fast while
