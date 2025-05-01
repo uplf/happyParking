@@ -18,10 +18,11 @@ uart = UART(3, 115200)  # 初始化 UART3，波特率 115200
 black_threshold = (0, 40, -40, 40, -40, 40)
 
 # 设定检测区域（例如：图像中心区域）
-roi = (60, 40, 200, 160)  # x, y, w, h
+#roi = (60, 40, 200, 160)  # x, y, w, h
+roi = (120, 80, 20, 16)
 
 # 设定识别色块的最小和最大面积，单位是像素
-min_area = 500
+min_area = 100
 max_area = 10000
 
 # 记录识别到的黑色色块数
@@ -58,10 +59,10 @@ while True:
         # 根据识别次数控制休眠
         if black_blob_count == 3 or black_blob_count == 5:
             print("达到特殊计数 {} 次，长时间休眠中...".format(black_blob_count))
-            time.sleep(long_sleep)
+            #time.sleep(long_sleep)
         else:
             print("短暂休眠...")
-            time.sleep(short_sleep)
+            #time.sleep(short_sleep)
 
     else:
         # 即使没有找到色块，也继续刷新，避免摄像头卡死
@@ -73,4 +74,5 @@ while True:
     #     break
 
     uart.write(bytearray([black_blob_count]))  # 发送一个字节
-    time.sleep_ms(1000)  # 延迟 1000 毫秒，也就是一秒钟
+    #time.sleep_ms(1000)  # 延迟 1000 毫秒，也就是一秒钟
+
