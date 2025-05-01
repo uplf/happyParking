@@ -7,9 +7,9 @@ void PIDgroupInit(){
 	//角度PID
 	UPPID.circleCalc=0;
 	
-	UPPID.P=0.7;
-	UPPID.I=0;
-	UPPID.D=0;
+	UPPID.P=1;
+	UPPID.I=0.0005;
+	UPPID.D=0.015;
 
 	UPPID.IntegralError=0;
 	UPPID.LastError=0;
@@ -32,7 +32,7 @@ void pidCalc(PIDgroup* G,int16_t* output)
 	
   int16_t iError=NextPoint-SetPoint;   	//增量计算
 	if(G->circleCalc)CirCal(&iError);
-	*output=G->P*iError+G->I*LastError+G->D*(PrevError-LastError);
+	*output=G->P*iError+G->I*IntegralError+G->D*(PrevError-LastError);
 	
   G->PrevError=LastError;                                      //存储误差，用于下次计算
   G->LastError=iError;
