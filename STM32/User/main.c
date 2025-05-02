@@ -67,16 +67,16 @@ int main(void)
 				 OLED_ShowNum(1,1,3,2);
 			 drive_setORI(0);
 			 //阶段2，初次入库
-			 SERIAL_sendBYTE(USART3,4);
-			 drive_setDir(3);
-			 drive_setORI(-5);
-			 while(openMV2_mes!=4){}
+			 SERIAL_sendBYTE(USART3,2);
+			 drive_setDir(47);//需要调试
+			 drive_setORI(-4);
+			 while(openMV2_mes!=2){}
 				 OLED_ShowNum(1,1,4,2);
 			 //阶段3，回正
 			 drive_setORI(0);
 			 drive_setDir(0);
 			 drive_setORI(-5);
-			 Delay_ms(1000);
+			 Delay_ms(1000);			//需要调
 				 
 			 //小车暂停
 			 //阶段4
@@ -84,25 +84,26 @@ int main(void)
 			 BUZZER_ON();//undefined
 			 Delay_ms(1000);
 			 BUZZER_OFF();
-				
+			 Delay_ms(4000);
+				 
 			 //车头摆正的出库阶段1
 			 //阶段5
 				 
-			 SERIAL_sendBYTE(USART3,5);
+			 SERIAL_sendBYTE(USART3,2);
 			 drive_setDir(0);
 			 drive_setORI(5);
 				 OLED_ShowNum(1,1,5,2);
-			 while(openMV2_mes!=5){};
+			 while(openMV2_mes!=2){};
 				 OLED_ShowNum(1,1,6,2);
-			 drive_setORI(0);
+			 //drive_setORI(0);
 				 
 			 //舵机旋转角度的出库阶段2，先使能openmv1，再延迟数据的接收
 			 //阶段6
 			 SERIAL_sendBYTE(USART1,1);
 			 openMV1_mes=0;
-			 drive_setDir(3);
+			 drive_setDir(47);
 			 drive_setORI(5);
-			 Delay_ms(1000);
+			 Delay_ms(1000);				//需要调
 				 OLED_ShowNum(1,1,7,2);
 			 while(!openMV1_mes){}
 				 OLED_ShowNum(1,1,8,2);
@@ -112,7 +113,7 @@ int main(void)
 			 SERIAL_sendBYTE(USART3,3);
 			 linePatrol(1,100);
 			 
-			 
+			 /*
 			 
 			 //---------------------------------------------
 			 //侧方停车逻辑
@@ -191,6 +192,7 @@ int main(void)
 		SERIAL_sendBYTE(USART3,3);
 			OLED_ShowNum(1,1,15,2);
 		linePatrol(1,100);
+		*/
 	}
 	//openMVTest();
 }
