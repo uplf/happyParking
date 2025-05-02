@@ -65,19 +65,48 @@ int main(void)
 	SERIAL_sendBYTE(USART1,openMV1Status);
 	
 	while(1){			
-		/*
-		ServoScope();
-		drive_setDir(0); 
-		Delay_ms(1000);
-		drive_setDir(50); 
-		Delay_ms(1000);
-		drive_setDir(-50);
-		Delay_ms(1000); */
-		Delay_ms(50);
-		Delay_ms(UPSampleRate);
-		linepatrol_openmv1();
+			 drive_setDir(0);
+ 			 SERIAL_sendBYTE(USART1,1);
+			 while(!Key_GetNum()){}
+			 SERIAL_sendBYTE(USART3,1);
+			 linePatrol(1,100);//openMV1巡线，直到收到2的信号：1
+			 drive_setORI(0);
+			 //阶段2，初次入库
+			 SERIAL_sendBYTE(USART3,0xFF);
+			 drive_setDir(0xFF);
+			 drive_setORI(-5);
+			 while(openMV2_mes!=0xFF){}
+			 //阶段3，回正
+			 drive_setORI(0);
+			 drive_setDir(0);
+			 drive_setORI(-5);
+			 Delay_ms(0xFF);
+				 
+			 //阶段4
+			 drive_setORI(0);
+			 BUZZER_ON();//undefined
+			 Delay_ms(1000);
+			 BUZZER_OFF();
+				 
+			 //阶段5
+				 
+			 SERIAL_sendBYTE(USART3,0xFF);
+			 drive_setDir(0);
+			 drive_setORI(5);
+			 while(openMV2_mes!=0xFF){};
+			 drive_setORI(0);
+				 
+			 //阶段6
+			 SERIAL_sendBYTE(USART1,1);
+			 openMV1_mes=0;
+			 drive_setDir(0xFF);
+			 drive_setORI(5);
+			 Delay_ms(1000);
+			 while(!openMV1_mes){}
+			 //阶段7
+			 SERIAL_sendBYTE(USART3,3);
+			 linePatrol(1,100);
 		
-		checkStopFromOpenMV2();
 		
 		
 
