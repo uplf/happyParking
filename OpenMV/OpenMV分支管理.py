@@ -39,45 +39,67 @@ print("开始识别...")
 const_value1= 1
 const_value2= 2
 
-while True:
-    const_value1= 1
-    clock.tick()
-    img = sensor.snapshot()  # 持续刷新，防止图像卡住
-    img.draw_rectangle(roi, color=(255, 0, 0))  # 在屏幕上画出ROI区域，便于调试观察
+Status=1
+def usartScan():
+    if uart.any()==0:
+        return 0
+    else:
+        Status=uart.read(1)
+        print(Status)
+        return Status
 
-    # 只在ROI区域内寻找色块
-    blobs = img.find_blobs([black_threshold], roi=roi, area_threshold=min_area, pixels_threshold=min_area, merge=True)
+def detLoop(countMAX):
+    black_blob_count=0
+    while (usartScan()==0):
+        const_value1= 1
+        clock.tick()
+        img = sensor.snapshot()  # 持续刷新，防止图像卡住
+        img.draw_rectangle(roi, color=(255, 0, 0))  # 在屏幕上画出ROI区域，便于调试观察
+        # 只在ROI区域内寻找色块
+        blobs = img.find_blobs([black_threshold], roi=roi, area_threshold=min_area, pixels_threshold=min_area, merge=True)
 
-    # 过滤符合大小要求的色块
-    valid_blobs = [b for b in blobs if min_area <= b.pixels() <= max_area]
+        # 过滤符合大小要求的色块
+        valid_blobs = [b for b in blobs if min_area <= b.pixels() <= max_area]
+        if valid_blobs:
+            black_blob_count += 1
+            print("检测到黑色色块，总计：", black_blob_count)
 
-    if valid_blobs:
-        black_blob_count += 1
-        print("检测到黑色色块，总计：", black_blob_count)
+            # 在图像上画出识别到的色块
+            for blob in valid_blobs:
+                img.draw_rectangle(blob.rect(), color=(0,255,0))
+                img.draw_cross(blob.cx(), blob.cy(), color=(0,255,0))
 
-        # 在图像上画出识别到的色块
-        for blob in valid_blobs:
-            img.draw_rectangle(blob.rect(), color=(0,255,0))
-            img.draw_cross(blob.cx(), blob.cy(), color=(0,255,0))
+            # 根据识别次数控制休眠
+            if black_blob_count == 4 :
+                uart.write(bytearray([const_value1]))  # 发送一个字节
+                print("达到特殊计数 {} 次，长时间休眠中...".format(black_blob_count))
+                time.sleep(long_sleep)
 
-        # 根据识别次数控制休眠
-        if black_blob_count == 4 :
-            uart.write(bytearray([const_value1]))  # 发送一个字节
-            print("达到特殊计数 {} 次，长时间休眠中...".format(black_blob_count))
-            time.sleep(long_sleep)
+            elif black_blob_count == 12:
+                uart.write(bytearray([const_value2]))  # 发送一个字节
+                print("达到特殊计数 {} 次，长时间休眠中...".format(black_blob_count))
+                time.sleep(long_sleep)
 
-        elif black_blob_count == 12:
-            uart.write(bytearray([const_value2]))  # 发送一个字节
-            print("达到特殊计数 {} 次，长时间休眠中...".format(black_blob_count))
-            time.sleep(long_sleep)
+            else:
+                print("短暂休眠...")
+                time.sleep(short_sleep)
 
         else:
-            print("短暂休眠...")
-            time.sleep(short_sleep)
+            # 即使没有找到色块，也继续刷新，避免摄像头卡死
+            pass
 
+
+
+while True:
+    black_blob_count=0
+    if(Status==1):
+        roi = (120, 100, 20, 16)
+        detLoop(4)
+    elif(Status==2):
+        roi = (100, 100, 20, 16)
+        detLoop(6)
     else:
-        # 即使没有找到色块，也继续刷新，避免摄像头卡死
-        pass
+        usartScan()
 
     #uart.write(bytearray([black_blob_count]))
 

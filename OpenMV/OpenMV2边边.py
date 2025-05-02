@@ -44,7 +44,6 @@ while True:
     clock.tick()
     img = sensor.snapshot()  # 持续刷新，防止图像卡住
     img.draw_rectangle(roi, color=(255, 0, 0))  # 在屏幕上画出ROI区域，便于调试观察
-
     # 只在ROI区域内寻找色块
     blobs = img.find_blobs([black_threshold], roi=roi, area_threshold=min_area, pixels_threshold=min_area, merge=True)
 
