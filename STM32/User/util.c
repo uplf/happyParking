@@ -19,3 +19,5 @@ int16_t UPLF_DIR=0;
 int testFlag=0;
 
 PIDgroup UPPID;
+
+int8_t openMV1Status;

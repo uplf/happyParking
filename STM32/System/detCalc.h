@@ -2,7 +2,9 @@
 #define __DETCALC_H
 #include "stm32f10x.h"                  // Device header
 #include "userSetup.h"
-
+#include "openMV.h" 
+#include "drive.h" 
+#include "OLED.h" 
 
 typedef struct{
 	float P;

@@ -1,4 +1,5 @@
 #include "openMV.h"
+#include "drive.h"
 
 
 
@@ -12,10 +13,6 @@ void openMV_init(){
 	INT_setNVIC(usartINT_set(USART3),1,1,ENABLE);
 	USART_Cmd(USART3,ENABLE);
 }
-
-
-
-
 
 
 void USART1_IRQHandler(void)
@@ -35,7 +32,7 @@ void USART1_IRQHandler(void)
 
 void USART3_IRQHandler(void)
 {
-	if (USART_GetITStatus(USART3, USART_IT_RXNE) == SET)		//判断是否是USART1的接收事件触发的中断
+	if (USART_GetITStatus(USART3, USART_IT_RXNE) == SET)		//判断是否是USART3的接收事件触发的中断
 	{
 		openMV2_mes = USART_ReceiveData(USART3);				//读取数据寄存器，存放在接收的数据变量
 		testFlag++;
@@ -45,3 +42,5 @@ void USART3_IRQHandler(void)
 																//如果已经读取了数据寄存器，也可以不执行此代码
 	}
 }
+
+

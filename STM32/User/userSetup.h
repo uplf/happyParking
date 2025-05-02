@@ -89,7 +89,7 @@
 */
 
 extern int16_t UPLF_DIR;
-
+extern int8_t openMV1Status;
 
 
 #endif

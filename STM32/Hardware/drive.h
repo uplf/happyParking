@@ -11,8 +11,8 @@
 void drive_init();
 //<following>调整前后转
 void drive_setORI(short);//0-stop 1~5forwards -1~-5backwards
-void drive_setDirPWM2(int16_t);//scope:-50~50
-void drive_setDir(int16_t);
+void drive_setDirPWM2(int16_t);
+void drive_setDir(int16_t);//scope:-50~50
 
 
 void drive_setPWM3(int16_t);

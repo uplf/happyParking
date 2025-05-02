@@ -20,6 +20,7 @@ del *.tra /s
 del *.dep /s           
 del JLinkLog.txt /s
 del *.29856 /s
+del *.aluo /s
 del *.lenovo /s
 del *.Admin /s
 del EventRecorderStub.scvd/s

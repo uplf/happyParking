@@ -1,5 +1,4 @@
 #include "stm32f10x.h"                  // Device header
-
 #include "Delay.h"
 #include "OLED.h"
 #include "CONFgeneral.h"
@@ -44,13 +43,28 @@ float StartAngle;
 int8_t RunMode;
 
 
+void checkStopFromOpenMV2(void) {
+	  OLED_ShowNum(4,1,openMV2_mes,3);
+    while (openMV2_mes == 1) {
+        drive_setDir(45);   
+        drive_setORI(-3);
+			  openMV1Status=2;
+			  SERIAL_sendBYTE(USART1,openMV1Status);
+			  //Delay_ms(3000);
+			  //ServoScope();
+    }
+}
+
 
 
 int main(void)
 {
 	Setup();
-	drive_setDir(0); 
-	while(1){
+	drive_setDir(-11); 
+	openMV1Status=1;
+	SERIAL_sendBYTE(USART1,openMV1Status);
+	
+	while(1){			
 		/*
 		ServoScope();
 		drive_setDir(0); 
@@ -59,19 +73,21 @@ int main(void)
 		Delay_ms(1000);
 		drive_setDir(-50);
 		Delay_ms(1000); */
-		
 		Delay_ms(50);
 		Delay_ms(UPSampleRate);
-		pidCalc(&UPPID,&UPLF_DIR);
-		UPPID.current=openMV1_mes;
-		OLED_ShowNum(2,1,openMV1_mes,3);
-		OLED_ShowSignedNum(3,1,UPLF_DIR,5);
-		drive_setDir(UPLF_DIR);
-		drive_setORI(5);
+		linepatrol_openmv1();
 		
+		checkStopFromOpenMV2();
+		
+		
+
 	}
 	//openMVTest();
 }
+
+
+
+
 void resetStartAngle(){
 
 		TIM_Cmd(TIM3,DISABLE);
@@ -92,6 +108,7 @@ void resetStartAngle(){
 	OLED_ShowSignedNum(2,1,StartAngle,5);
 	TIM_Cmd(TIM3,ENABLE);
 }
+
 
 
 
