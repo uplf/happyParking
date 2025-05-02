@@ -48,12 +48,14 @@ void CirCalF(float *Ang){
 	if(*Ang>180)*Ang-=360;
 	if(*Ang<-180)*Ang+=360;
 }
-
-void linepatrol_openmv1(){
-		pidCalc(&UPPID,&UPLF_DIR);
+void linePatrol(uint8_t endFlag,uint8_t dist){
+	UPPID.target=dist;
+	while(openMV2_mes!=endFlag){
+		Delay_ms(UPSampleRate);
 		UPPID.current=openMV1_mes;
+		pidCalc(&UPPID,&UPLF_DIR);
 		OLED_ShowNum(2,1,openMV1_mes,3);
 		OLED_ShowSignedNum(3,1,UPLF_DIR,5);
 		drive_setDir(UPLF_DIR);
-		drive_setORI(5);
+	}
 }

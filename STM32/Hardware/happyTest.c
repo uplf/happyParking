@@ -32,13 +32,13 @@ void hardwareTest(){
 	
 	LED_Init();
 	OLED_ShowString(1,1,"3/");
-	OLED_ShowString(2,1,"LED_Test");
+	OLED_ShowString(2,1,"BUZZER_Test");
 	OLED_ShowString(3,1,"loooook ");
 	OLED_ShowString(4,1,"pressAnyKey ");
 	while(!Key_GetNum()){
-		LED1_Turn();
+		BUZZER_ON();
 		Delay_ms(100);
-		LED2_Turn();
+		BUZZER_OFF();
 		Delay_ms(100);
 	}
 	

@@ -64,7 +64,10 @@ int main(void)
 	openMV1Status=1;
 	SERIAL_sendBYTE(USART1,openMV1Status);
 	
-	while(1){			
+	while(1)
+	{	
+		/*	
+			
 			 drive_setDir(0);
  			 SERIAL_sendBYTE(USART1,1);
 			 while(!Key_GetNum()){}
@@ -72,7 +75,7 @@ int main(void)
 			 linePatrol(1,100);//openMV1巡线，直到收到2的信号：1
 			 drive_setORI(0);
 			 //阶段2，初次入库
-			 SERIAL_sendBYTE(USART3,0xFF);
+			 SERIAL_sendBYTE(USART3,4);
 			 drive_setDir(0xFF);
 			 drive_setORI(-5);
 			 while(openMV2_mes!=0xFF){}
@@ -82,20 +85,23 @@ int main(void)
 			 drive_setORI(-5);
 			 Delay_ms(0xFF);
 				 
+			 //小车暂停
 			 //阶段4
 			 drive_setORI(0);
 			 BUZZER_ON();//undefined
 			 Delay_ms(1000);
 			 BUZZER_OFF();
-				 
+				
+			 //车头摆正的出库阶段1
 			 //阶段5
 				 
-			 SERIAL_sendBYTE(USART3,0xFF);
+			 SERIAL_sendBYTE(USART3,5);
 			 drive_setDir(0);
 			 drive_setORI(5);
 			 while(openMV2_mes!=0xFF){};
 			 drive_setORI(0);
 				 
+			 //舵机旋转角度的出库阶段2，先使能openmv1，再延迟数据的接收
 			 //阶段6
 			 SERIAL_sendBYTE(USART1,1);
 			 openMV1_mes=0;
@@ -103,13 +109,84 @@ int main(void)
 			 drive_setORI(5);
 			 Delay_ms(1000);
 			 while(!openMV1_mes){}
+			 
+			 //出库车身摆正，继续巡线，并使能openmv2
 			 //阶段7
 			 SERIAL_sendBYTE(USART3,3);
 			 linePatrol(1,100);
+			 
+			 
+			 
+			 //---------------------------------------------
+			 //侧方停车逻辑
+			 //阶段2-1 继续巡线，直到收到2的信号：1
+			 SERIAL_sendBYTE(USART1,1);
+			 while(!Key_GetNum()){}
+			 SERIAL_sendBYTE(USART3,1);
+			 //舵机回正
+			 drive_setORI(0);
+			 
+			 //阶段2-2，初次入库
+			 SERIAL_sendBYTE(USART3,6);//openmv2的模式需要测距功能，用于为舵机左打提供信号
+			 drive_setDir(0xFF);
+			 drive_setORI(-5);
+			 while(openMV2_mes!=0xFF){}
+			 //阶段2-3，舵机左打
+			 drive_setORI(-5);
+			 drive_setDir(0xFF);
+			 Delay_ms(0xFF);
+			 drive_setORI(0);//电机停
+			
+			 //阶段2-4
+			 drive_setORI(0);
+			 BUZZER_ON();//undefined
+			 Delay_ms(1000);
+			 BUZZER_OFF();
+				
+			 //车头的出库阶段1
+			 //阶段2-5
+				 
+			 SERIAL_sendBYTE(USART3,7);
+			 drive_setDir(0);
+			 drive_setORI(5);
+			 while(openMV2_mes!=0xFF){};
+			 drive_setORI(0);
+				 
+			 //舵机旋转角度的出库阶段2，先使能openmv1，再延迟数据的接收
+			 //阶段2-6
+			 SERIAL_sendBYTE(USART1,1);
+			 openMV1_mes=0;
+			 drive_setDir(0xFF);
+			 drive_setORI(5);
+			 Delay_ms(1000);
+			 while(!openMV1_mes){}
+			 
+			 //出库车身摆正，继续巡线，并使能openmv2
+			 //阶段7
+			 SERIAL_sendBYTE(USART3,3);
+			 linePatrol(1,100);
+			 
+		*/
 		
+		//出库阶段1，直行出库
+		SERIAL_sendBYTE(USART3,0xFF);
+		drive_setDir(0);
+		drive_setORI(5);
 		
-		
-
+				 
+		//舵机旋转角度的出库阶段2，先使能openmv1，再延迟数据的接收
+		//阶段6
+		SERIAL_sendBYTE(USART1,1);
+		openMV1_mes=0;
+		drive_setDir(30);
+		drive_setORI(5);
+		Delay_ms(1000);
+		while(!openMV1_mes){}
+			 
+		//出库车身摆正，继续巡线，并使能openmv2
+		//阶段7
+		SERIAL_sendBYTE(USART3,3);
+		linePatrol(1,100);
 	}
 	//openMVTest();
 }
