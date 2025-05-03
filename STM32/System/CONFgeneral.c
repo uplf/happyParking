@@ -206,12 +206,10 @@ void sADC_setMODE(uint8_t ADC_Channel_x,ADC_TypeDef* ADCx)
 		ADC_StartCalibration(ADC1);
 		while (ADC_GetCalibrationStatus(ADC1) == SET);
 	}
-	uint16_t sADC_getDATA(ADC_TypeDef* ADCx)
-	{
-		ADC_SoftwareStartConvCmd(ADCx, ENABLE);					//软件触发AD转换一次
-		while (ADC_GetFlagStatus(ADCx, ADC_FLAG_EOC) == RESET);	//等待EOC标志位，即等待AD转换结束
-		return ADC_GetConversionValue(ADC1);					//读数据寄存器，得到AD转换的结果
-	}
-	
-	
+uint16_t sADC_getDATA(ADC_TypeDef* ADCx)
+{
+	ADC_SoftwareStartConvCmd(ADCx, ENABLE);					//软件触发AD转换一次
+	while (ADC_GetFlagStatus(ADCx, ADC_FLAG_EOC) == RESET);	//等待EOC标志位，即等待AD转换结束
+	return ADC_GetConversionValue(ADC1);					//读数据寄存器，得到AD转换的结果
+}
 	

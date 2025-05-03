@@ -3,7 +3,6 @@
 void hardwareTest(){
 	int16_t testHelper=0;
 	int16_t testHelper2=0;
-	int16_t testHelper3=0;
 	reuse_init();
 	OLED_Init();
 	OLED_Clear();

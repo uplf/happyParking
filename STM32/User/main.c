@@ -18,7 +18,7 @@
 
 
 
-void resetStartAngle();
+
 
 int8_t wytest=0;
 
@@ -38,11 +38,14 @@ void Setup(void){
 }
 
 
-float Pitch,Roll,Yaw;								//俯仰角默认跟中值一样，翻滚角，偏航角
-float StartAngle;
+
 int8_t RunMode;
 
-
+void testUSART(){
+	while(!Key_GetNum()){
+		
+	}
+}
 
 
 int main(void)
@@ -216,27 +219,6 @@ int main(void)
 
 
 
-
-void resetStartAngle(){
-
-		TIM_Cmd(TIM3,DISABLE);
-
-	//角度PID
-
-	while(!Key_GetNum())
-	{
-		Delay_ms(5);
-		MPU6050_DMP_Get_Data(&Pitch,&Roll,&Yaw);
-		OLED_ShowSignedNum(1,1,Yaw,5);
-		
-	}
-	StartAngle=Yaw;
-	OLED_ShowChar(1,7,'+');
-	MPU6050_DMP_Get_Data(&Pitch,&Roll,&Yaw);
-	OLED_ShowSignedNum(1,1,Yaw,5);
-	OLED_ShowSignedNum(2,1,StartAngle,5);
-	TIM_Cmd(TIM3,ENABLE);
-}
 
 
 

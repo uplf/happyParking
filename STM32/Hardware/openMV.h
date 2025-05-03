@@ -13,7 +13,7 @@
 
 
 
-void openMV_init();
+void openMV_init(void);
 
 extern uint16_t openMV1_mes,openMV2_mes;
 extern int testFlag;

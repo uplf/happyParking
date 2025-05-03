@@ -8,7 +8,7 @@
 #define _ENABLE 1
 #define _DISABLE 0
 
-void drive_init();
+void drive_init(void);
 //<following>调整前后转
 void drive_setORI(short);//0-stop 1~5forwards -1~-5backwards
 void drive_setDirPWM2(int16_t);

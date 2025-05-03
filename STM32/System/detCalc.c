@@ -20,10 +20,7 @@ void PIDgroupInit(){
 
 void pidCalc(PIDgroup* G,int16_t* output)
 {
-  int16_t Outpid,SetPoint,NextPoint;                                        //当前误差
-	int16_t pid[6];
-	int8_t cur;
-	
+  int16_t SetPoint,NextPoint;                                        //当前误差
 	SetPoint=G->current;
 	NextPoint=G->target;
 	int16_t LastError=G->LastError;

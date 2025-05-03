@@ -5,7 +5,7 @@
 
 
 
-void intInit();
+void intInit(void);
 void TIM1_IRQHandler(void);
 
 

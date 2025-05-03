@@ -21,7 +21,7 @@ typedef struct{
 }PIDgroup;
 
 void pidCalc(PIDgroup*,int16_t*);
-void PIDgroupInit();
+void PIDgroupInit(void);
 //distCal
 extern int16_t openMV1_dist;
 #define distCal() openMV1_dist=openMV1_mes

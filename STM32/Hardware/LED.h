@@ -6,6 +6,6 @@
 
 
 void LED_Init(void);
-void BUZZER_ON();
-void BUZZER_OFF();
+void BUZZER_ON(void);
+void BUZZER_OFF(void);
 #endif

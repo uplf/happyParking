@@ -11,7 +11,7 @@
 #define _HIGH Bit_SET
 #define _LOW Bit_RESET
 
-void reuse_init();
+void reuse_init(void);
 
 void PIN_setMODE(GPIO_TypeDef* GPIOx,uint16_t GPIO_Pin_x,GPIOMode_TypeDef MODE);
 //set the mode of a pin

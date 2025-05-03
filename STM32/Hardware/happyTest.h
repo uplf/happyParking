@@ -19,9 +19,9 @@
 #include "openMV.h"
 
 
-void hardwareTest();
-void openMVTest();
-void ServoScope();
+void hardwareTest(void);
+void openMVTest(void);
+void ServoScope(void);
 extern int testFlag;
 
 #endif

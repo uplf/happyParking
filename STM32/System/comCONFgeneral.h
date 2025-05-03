@@ -69,7 +69,7 @@ extern uint8_t Serial2_RxFlag;					//定义接收数据包标志位
 			
 	//part3.SPI(hardware)setting
 		//注意：这里将SPI引脚写死为SPI1
-		void SPI_setMODE();
+		void SPI_setMODE(void);
 			
 		void SPI_W_SS(uint8_t BitValue);
 		void SPI_Start(void);
