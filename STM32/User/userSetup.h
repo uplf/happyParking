@@ -84,7 +84,7 @@
 #define INV_ABLE 1
 
 //
-#define UPSampleRate 2
+#define UPSampleRate 1000
 
 /********Section3:全局变量
 */

@@ -36,7 +36,7 @@ print("开始识别...")
 const_value1= 1  #计数识别，达到个数发1
 const_value2= 2  #点位识别，找到发2
 
-Status=0
+Status=1
 
 
 def usartScan():
@@ -127,12 +127,14 @@ while True:
     usartScan() #更新
     print("当前Status值为 {} ".format(Status))
     if  Status == 1:
-        roi = (120, 100, 20, 16)
-        detLoop(4, roi)
-        Status=0
+        roi = (140, 130, 20, 16)
+        detLoop(4
+                66, roi)
+        #Status=0
     elif Status == 2:
-        roi = (100, 100, 20, 16)
+        roi = (165, 180, 20, 16)
         findblob(roi)
+        Status=0
     elif Status == 3:
         roi = (100, 100, 20, 16)
         detLoop(6, roi)

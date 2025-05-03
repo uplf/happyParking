@@ -53,11 +53,12 @@ int main(void)
 	Setup();
 	drive_setDir(0); 
 	openMV1Status=1;
-	drive_setORI(3);
-	OLED_ShowChar(1,8,'w');
+	
+	OLED_ShowChar(2,8,'w');
 	Delay_ms(51);
 	OLED_ShowChar(1,8,' ');
-	while(!Key_GetNum()){}
+	while(!Key_GetNum()){OLED_ShowNum(1,1,openMV1_mes,3);}
+	//drive_setORI(3);
 	//linePatrol22(100);
 	//SERIAL_sendBYTE(USART1,openMV1Status);
 	
