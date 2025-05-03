@@ -19,7 +19,6 @@
 
 
 
-
 int8_t wytest=0;
 
 void Setup(void){
@@ -39,7 +38,7 @@ void Setup(void){
 
 
 
-int8_t RunMode;
+int8_t CHOICE;
 
 void testUSART(){
 	while(!Key_GetNum()){
@@ -54,23 +53,33 @@ int main(void)
 	drive_setDir(0); 
 	openMV1Status=1;
 	
-	OLED_ShowChar(2,8,'w');
-	Delay_ms(51);
-	OLED_ShowChar(1,8,' ');
-	while(!Key_GetNum()){OLED_ShowNum(1,1,openMV1_mes,3);}
-	//drive_setORI(3);
-	//linePatrol22(100);
-	//SERIAL_sendBYTE(USART1,openMV1Status);
+	//while(1){;}
+
+	/*
+	//PID testing
+	drive_setORI(3);
+	linePatrol22(100);
+	*/
 	
+	//SERIAL_sendBYTE(USART1,openMV1Status);
+	OLED_ShowNum(1,1,1,2);
 	
 	while(1)
 	{	
+		do{
+		CHOICE=Key_GetNum();
+		if(CHOICE==2)SERIAL_sendBYTE(USART3,1);
+		OLED_ShowString(2,1,"REC1:");
+		OLED_ShowString(3,1,"REC2:");
+		OLED_ShowNum(2,6,openMV1_mes,8);
+		OLED_ShowNum(3,6,openMV2_mes,8);
+		}while(CHOICE!=1);
+		OLED_Clear();
 		 //openMVTest();
-		
+			 
 			 drive_setDir(0);
  			 SERIAL_sendBYTE(USART1,1);
-					OLED_ShowNum(1,1,1,2);
-			 while(!Key_GetNum()){}
+					
 					OLED_ShowNum(1,1,2,2);
 			 SERIAL_sendBYTE(USART3,1);
 			 drive_setORI(3);
