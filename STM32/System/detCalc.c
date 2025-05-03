@@ -7,9 +7,9 @@ void PIDgroupInit(){
 	//½Ç¶ÈPID
 	UPPID.circleCalc=0;
 	
-	UPPID.P=1;
-	UPPID.I=0.0005;
-	UPPID.D=0.015;
+	UPPID.P=1.2;
+	UPPID.I=0.0003;
+	UPPID.D=0.25;
 
 	UPPID.IntegralError=0;
 	UPPID.LastError=0;
@@ -57,5 +57,24 @@ void linePatrol(uint8_t endFlag,uint8_t dist){
 		OLED_ShowNum(2,1,openMV1_mes,3);
 		OLED_ShowSignedNum(3,1,UPLF_DIR,5);
 		drive_setDir(UPLF_DIR);
+		OLED_ShowNum(4,1,openMV2_mes,1);
+		OLED_ShowNum(4,3,openMV1_mes,5);
 	}
+}
+#include "Key.h"
+void linePatrol22(uint8_t dist){
+	UPPID.target=dist;
+	while(!Key_GetNum()){
+		Delay_ms(UPSampleRate);
+		UPPID.current=openMV1_mes;
+		pidCalc(&UPPID,&UPLF_DIR);
+		OLED_ShowNum(2,1,openMV1_mes,3);
+		OLED_ShowSignedNum(3,1,UPLF_DIR,5);
+		drive_setDir(UPLF_DIR);
+		OLED_ShowNum(4,1,openMV2_mes,1);
+		OLED_ShowNum(4,3,openMV1_mes,5);
+	}
+	drive_setDir(0);
+	drive_setORI(-5);
+	while(1){}
 }

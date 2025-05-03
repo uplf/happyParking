@@ -29,6 +29,7 @@ extern int16_t openMV1_dist;
 void CirCal(int16_t *);
 void CirCalF(float *);
 void linePatrol(uint8_t endFlag,uint8_t dist);
+void linePatrol22(uint8_t dist);
 
 
 extern PIDgroup UPPID;

@@ -73,10 +73,11 @@
 
 /*******Section2:index Setup
 1.Speed*/
-#define BASIC_SPEEDLF 50
-#define BASIC_SPEEDRF 62
-#define BASIC_SPEEDLB 58
-#define BASIC_SPEEDRB 58
+#define BASIC_SPEEDLF 82
+#define BASIC_SPEEDRF 82
+//#define BASIC_SPEEDRF 100
+#define BASIC_SPEEDLB 52
+#define BASIC_SPEEDRB 52
 #define BASIC_TOWARDS 1450
 //1-100
 #define ALTER_UNIT 1

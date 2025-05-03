@@ -30,9 +30,9 @@ void drive_setPWM34(int16_t duty3,int16_t duty4){
 	drive_setPWM4(duty4);
 }
 void drive_setORI(short index){
-	index=-index;
 	drive_setPWM3(index*(index>0?BASIC_SPEEDLF:BASIC_SPEEDLB)/5);
 	drive_setPWM4(index*(index>0?BASIC_SPEEDRF:BASIC_SPEEDRB)/5);
+	
 }
 void drive_setDir(int16_t IND){
 	IND=IND>50?50:IND;

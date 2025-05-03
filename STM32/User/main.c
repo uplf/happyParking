@@ -48,24 +48,32 @@ int8_t RunMode;
 int main(void)
 {
 	Setup();
-	//openMVTest();
-	drive_setDir(-11); 
+	drive_setDir(0); 
 	openMV1Status=1;
-	SERIAL_sendBYTE(USART1,openMV1Status);
+	drive_setORI(3);
+	OLED_ShowChar(1,8,'w');
+	Delay_ms(51);
+	OLED_ShowChar(1,8,' ');
+	while(!Key_GetNum()){}
+	//linePatrol22(100);
+	//SERIAL_sendBYTE(USART1,openMV1Status);
+	
 	
 	while(1)
 	{	
-		 openMVTest();
-			/*
+		 //openMVTest();
+		
 			 drive_setDir(0);
  			 SERIAL_sendBYTE(USART1,1);
 					OLED_ShowNum(1,1,1,2);
 			 while(!Key_GetNum()){}
 					OLED_ShowNum(1,1,2,2);
 			 SERIAL_sendBYTE(USART3,1);
+			 drive_setORI(3);
 			 linePatrol(1,100);//openMV1巡线，直到收到2的信号：1
 				 OLED_ShowNum(1,1,3,2);
 			 drive_setORI(0);
+				 
 			 //阶段2，初次入库
 			 SERIAL_sendBYTE(USART3,2);
 			 drive_setDir(47);//需要调试
@@ -113,8 +121,8 @@ int main(void)
 			 SERIAL_sendBYTE(USART3,3);
 			 linePatrol(1,100);
 			 
-			 /*
 			 
+			 /*
 			 //---------------------------------------------
 			 //侧方停车逻辑
 			 //阶段2-1 继续巡线，直到收到2的信号：1
