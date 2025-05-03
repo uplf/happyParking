@@ -89,14 +89,16 @@ void openMVTest(){
 	OLED_ShowString(3,1,"rec2:");
 	//openMV1_send(TEST_SIG);
 	//openMV2_send(TEST_SIG);
-	while(n!=3){
+	while(1){
 		n=Key_GetNum();
-		if(n==1)SERIAL_sendBYTE(USART3,TEST_SIG);
-		if(n==2)SERIAL_sendBYTE(USART1,TESTEND_SIG);
+		if(n==1)SERIAL_sendBYTE(USART3,1);
+		if(n==2)SERIAL_sendBYTE(USART3,2);
+		if(n==3)SERIAL_sendBYTE(USART3,1);
 		OLED_ShowNum(2,6,openMV1_mes,8);
 		OLED_ShowNum(3,6,openMV2_mes,8);
 		OLED_ShowNum(4,1,testFlag,5);
-		OLED_ShowNum(4,7,m,1);
+		OLED_ShowNum(4,8,(openMV2_mes==2),1);
+		if(n)OLED_ShowNum(4,10,n,1);
 		m=!m;
 	}
 

@@ -55,8 +55,8 @@ int main(void)
 	
 	while(1)
 	{	
-		
-			
+		 openMVTest();
+			/*
 			 drive_setDir(0);
  			 SERIAL_sendBYTE(USART1,1);
 					OLED_ShowNum(1,1,1,2);
@@ -191,6 +191,7 @@ int main(void)
 		SERIAL_sendBYTE(USART3,3);
 			OLED_ShowNum(1,1,15,2);
 		linePatrol(1,100);
+		*/
 	}
 	//openMVTest();
 }

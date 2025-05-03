@@ -13,6 +13,7 @@ sensor.set_auto_whitebal(False)      # 关闭白平衡（重要）
 clock = time.clock()
 
 uart = UART(3, 115200)  # 初始化 UART3，波特率 115200
+uart.init(115200, bits=8, parity=None, stop=1) # init with given parameters
 
 # 设置黑色识别的色块阈值（根据实际情况可能需要调试）
 black_threshold = (0, 40, -40, 40, -40, 40)

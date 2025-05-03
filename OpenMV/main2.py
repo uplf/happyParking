@@ -45,7 +45,7 @@ while True:
     if uart.any():
 
         data=uart.read(1)
-        print(data)
+        print((data)==b'1')
         #uart.write(str(data))
         uart.write(str(data[0]))
         #data_1=data[0]
