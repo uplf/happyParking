@@ -36,7 +36,7 @@ print("开始识别...")
 const_value1= 1  #计数识别，达到个数发1
 const_value2= 2  #点位识别，找到发2
 
-Status=0
+Status=1
 
 
 def usartScan():
@@ -75,6 +75,7 @@ def detLoop(countMAX, roi):
                 uart.write(bytearray([const_value1]))  # 发送一个字节
                 print("达到特殊计数 {} 次，退出循环".format(black_blob_count))
                 time.sleep(long_sleep)
+               
 
 
             else:
