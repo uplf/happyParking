@@ -130,10 +130,11 @@ while True:
         detLoop(4, roi)
     elif Status == 2:
         roi = (100, 100, 20, 16)
-        detLoop(6, roi)
+        findblob(roi)
     elif Status == 3:
         roi = (100, 100, 20, 16)
-        findblob(roi)
+        detLoop(6, roi)
+
     else:
         # 无效指令，可略过或等待下次
         img = sensor.snapshot()

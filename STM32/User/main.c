@@ -27,7 +27,7 @@ void Setup(void){
 	reuse_init();
 	OLED_Init();
 	drive_init();
-	//MPU6050_Init();		//MPU6050³õÊ¼»¯
+	//MPU6050_Init();		//MPU6050åˆå§‹åŒ–
 	//MPU6050_DMP_Init();
 	PIDgroupInit();
 	intInit();
@@ -38,7 +38,7 @@ void Setup(void){
 }
 
 
-float Pitch,Roll,Yaw;								//¸©Ñö½ÇÄ¬ÈÏ¸úÖĞÖµÒ»Ñù£¬·­¹ö½Ç£¬Æ«º½½Ç
+float Pitch,Roll,Yaw;								//ä¿¯ä»°è§’é»˜è®¤è·Ÿä¸­å€¼ä¸€æ ·ï¼Œç¿»æ»šè§’ï¼Œåèˆªè§’
 float StartAngle;
 int8_t RunMode;
 
@@ -63,120 +63,130 @@ int main(void)
 			 while(!Key_GetNum()){}
 					OLED_ShowNum(1,1,2,2);
 			 SERIAL_sendBYTE(USART3,1);
-			 linePatrol(1,100);//openMV1Ñ²Ïß£¬Ö±µ½ÊÕµ½2µÄĞÅºÅ£º1
+			 linePatrol(1,100);//openMV1å·¡çº¿ï¼Œç›´åˆ°æ”¶åˆ°2çš„ä¿¡å·ï¼š1
 				 OLED_ShowNum(1,1,3,2);
 			 drive_setORI(0);
-			 //½×¶Î2£¬³õ´ÎÈë¿â
-			 SERIAL_sendBYTE(USART3,4);
-			 drive_setDir(3);
-			 drive_setORI(-5);
-			 while(openMV2_mes!=4){}
+			 //é˜¶æ®µ2ï¼Œåˆæ¬¡å…¥åº“
+			 SERIAL_sendBYTE(USART3,2);
+			 drive_setDir(47);//éœ€è¦è°ƒè¯•
+			 drive_setORI(-4);
+			 while(openMV2_mes!=2){}
 				 OLED_ShowNum(1,1,4,2);
-			 //½×¶Î3£¬»ØÕı
+			 //é˜¶æ®µ3ï¼Œå›æ­£
 			 drive_setORI(0);
 			 drive_setDir(0);
 			 drive_setORI(-5);
-			 Delay_ms(1000);
+			 Delay_ms(1000);			//éœ€è¦è°ƒ
 				 
-			 //Ğ¡³µÔİÍ£
-			 //½×¶Î4
+			 //å°è½¦æš‚åœ
+			 //é˜¶æ®µ4
 			 drive_setORI(0);
 			 BUZZER_ON();//undefined
 			 Delay_ms(1000);
 			 BUZZER_OFF();
-				
-			 //³µÍ·°ÚÕıµÄ³ö¿â½×¶Î1
-			 //½×¶Î5
+			 Delay_ms(4000);
 				 
-			 SERIAL_sendBYTE(USART3,5);
+			 //è½¦å¤´æ‘†æ­£çš„å‡ºåº“é˜¶æ®µ1
+			 //é˜¶æ®µ5
+				 
+			 SERIAL_sendBYTE(USART3,2);
 			 drive_setDir(0);
 			 drive_setORI(5);
 				 OLED_ShowNum(1,1,5,2);
-			 while(openMV2_mes!=5){};
+			 while(openMV2_mes!=2){};
 				 OLED_ShowNum(1,1,6,2);
-			 drive_setORI(0);
+			 //drive_setORI(0);
 				 
-			 //¶æ»úĞı×ª½Ç¶ÈµÄ³ö¿â½×¶Î2£¬ÏÈÊ¹ÄÜopenmv1£¬ÔÙÑÓ³ÙÊı¾İµÄ½ÓÊÕ
-			 //½×¶Î6
+			 //èˆµæœºæ—‹è½¬è§’åº¦çš„å‡ºåº“é˜¶æ®µ2ï¼Œå…ˆä½¿èƒ½openmv1ï¼Œå†å»¶è¿Ÿæ•°æ®çš„æ¥æ”¶
+			 //é˜¶æ®µ6
 			 SERIAL_sendBYTE(USART1,1);
 			 openMV1_mes=0;
-			 drive_setDir(3);
+			 drive_setDir(47);
 			 drive_setORI(5);
-			 Delay_ms(1000);
+			 Delay_ms(1000);				//éœ€è¦è°ƒ
 				 OLED_ShowNum(1,1,7,2);
 			 while(!openMV1_mes){}
 				 OLED_ShowNum(1,1,8,2);
 			 
-			 //³ö¿â³µÉí°ÚÕı£¬¼ÌĞøÑ²Ïß£¬²¢Ê¹ÄÜopenmv2
-			 //½×¶Î7
+			 //å‡ºåº“è½¦èº«æ‘†æ­£ï¼Œç»§ç»­å·¡çº¿ï¼Œå¹¶ä½¿èƒ½openmv2
+			 //é˜¶æ®µ7
 			 SERIAL_sendBYTE(USART3,3);
 			 linePatrol(1,100);
 			 
-			 
+			 /*
 			 
 			 //---------------------------------------------
-			 //²à·½Í£³µÂß¼­
-			 //½×¶Î2-1 ¼ÌĞøÑ²Ïß£¬Ö±µ½ÊÕµ½2µÄĞÅºÅ£º1
-			 SERIAL_sendBYTE(USART1,1);
-			 while(!Key_GetNum()){}
-			 SERIAL_sendBYTE(USART3,1);
-			 //¶æ»ú»ØÕı
+			 //ä¾§æ–¹åœè½¦é€»è¾‘
+			 //é˜¶æ®µ2-1 ç»§ç»­å·¡çº¿ï¼Œç›´åˆ°æ”¶åˆ°2çš„ä¿¡å·ï¼š1
+			 SERIAL_sendBYTE(USART1,1);		//å¯è§†ä¸ºåˆ†æ®µæµ‹è¯•ï¼Œå†æ¬¡ç»™openmv1å‘é€1ä½¿å…¶å·¡çº¿
+			 while(!Key_GetNum()){}			//æŒ‰ä¸‹æŒ‰é’®æ‰è¿è¡Œopenmv2çš„æ¨¡å¼
+			 SERIAL_sendBYTE(USART3,3);		//æ¨¡å¼3ä¸ºæ•°ä¾§æ–¹åº“è¾¹æ•°
+			 
+			 
+			 //æ­¤3è¡Œä»£ç ä¸ä¸Šé‡å¤ï¼Œå¯æ³¨é‡Šæ‰
+				 
+			 //èˆµæœºå›æ­£
 			 drive_setORI(0);
 			 
-			 //½×¶Î2-2£¬³õ´ÎÈë¿â
-			 SERIAL_sendBYTE(USART3,6);//openmv2µÄÄ£Ê½ĞèÒª²â¾à¹¦ÄÜ£¬ÓÃÓÚÎª¶æ»ú×ó´òÌá¹©ĞÅºÅ
-			 drive_setDir(3);
+			 //é˜¶æ®µ2-2ï¼Œåˆæ¬¡å…¥åº“
+			 SERIAL_sendBYTE(USART3,6);//openmv2çš„æ¨¡å¼éœ€è¦æµ‹è·åŠŸèƒ½ï¼Œç”¨äºä¸ºèˆµæœºå·¦æ‰“æä¾›ä¿¡å·
+			 drive_setDir(30);		   //åˆæ¬¡å€’åº“çš„è§’åº¦2ï¼Œéœ€è°ƒèŠ‚
 			 drive_setORI(-5);
 				 OLED_ShowNum(1,1,9,2);
-			 while(openMV2_mes!=6){}
+			 while(openMV2_mes!=2){}	//ç›´åˆ°openmv2è¯†åˆ«åˆ°æ–¹å—ï¼Œæ‰§è¡Œèˆµæœºçš„ç¬¬äºŒæ¡æŒ‡ä»¤
 				 OLED_ShowNum(1,1,10,2);
-			 //½×¶Î2-3£¬¶æ»ú×ó´ò
+			 //é˜¶æ®µ2-3ï¼Œèˆµæœºå·¦æ‰“
 			 drive_setORI(-5);
-			 drive_setDir(3);
-			 Delay_ms(1000);
-			 drive_setORI(0);//µç»úÍ£
+			 drive_setDir(-35);         //èˆµæœºçš„æµ‹è¯•è§’åº¦2ï¼Œéœ€è°ƒèŠ‚
+			 Delay_ms(1000);			//å€’è½¦æ–¹å¼2çš„å€’è½¦æ—¶é—´ï¼Œéœ€æµ‹é‡
+			 drive_setORI(0);//ç”µæœºåœ
 			
-			 //½×¶Î2-4
+			 //é˜¶æ®µ2-4
 			 drive_setORI(0);
 			 BUZZER_ON();//undefined
 			 Delay_ms(1000);
 			 BUZZER_OFF();
-				
-			 //³µÍ·µÄ³ö¿â½×¶Î1
-			 //½×¶Î2-5
+			 Delay_ms(4000);			//åœè½¦å…¥åº“ï¼Œèœ‚é¸£å™¨å“1ç§’ï¼Œåœ5ç§’
+			 
+			 //è½¦å¤´çš„å‡ºåº“é˜¶æ®µ1
+			 //é˜¶æ®µ2-5
 				 
-			 SERIAL_sendBYTE(USART3,7);
-			 drive_setDir(0);
-			 drive_setORI(5);
+			 SERIAL_sendBYTE(USART3,2);		//openmv2çš„æ¨¡å¼è®¾ç½®ä¸ºæ¨¡å¼2ï¼Œç”¨äºè¯†åˆ«è‰²å—
+			 drive_setDir(-35);				//èˆµæœºå‡ºåº“è§’åº¦1ï¼Œéœ€æµ‹è¯•ï¼Œä¸å…¥åº“è§’åº¦2ç›¸åŒ
+			 drive_setORI(5);				
 				 OLED_ShowNum(1,1,11,2);
-			 while(openMV2_mes!=7){};
+			 while(openMV2_mes!=7){};		//ç›´åˆ°è¯†åˆ«åˆ°è‰²å—ï¼Œè¿›è¡Œè§’åº¦2çš„è°ƒèŠ‚
 				 OLED_ShowNum(1,1,12,2);
-			 drive_setORI(0);
+			 //drive_setORI(0);
 				 
-			 //¶æ»úĞı×ª½Ç¶ÈµÄ³ö¿â½×¶Î2£¬ÏÈÊ¹ÄÜopenmv1£¬ÔÙÑÓ³ÙÊı¾İµÄ½ÓÊÕ
-			 //½×¶Î2-6
-			 SERIAL_sendBYTE(USART1,1);
-			 openMV1_mes=0;
-			 drive_setDir(3);
-			 drive_setORI(5);
-			 Delay_ms(1000);
-			 while(!openMV1_mes){}
+			 //èˆµæœºæ—‹è½¬è§’åº¦çš„å‡ºåº“é˜¶æ®µ2ï¼Œå…ˆä½¿èƒ½openmv1ï¼Œå†å»¶è¿Ÿæ•°æ®çš„æ¥æ”¶
+			 //é˜¶æ®µ2-6
+			 SERIAL_sendBYTE(USART1,1);     //ä½¿èƒ½openmv1ï¼Œä½¿å…¶å·¡çº¿
+			 openMV1_mes=0;						
+			 drive_setDir(3);				//å‡ºåº“è§’åº¦2ï¼Œéœ€æµ‹é‡ï¼Œä¸å…¥åº“è§’åº¦1ç›¸åŒ
+			 drive_setORI(5);				
+			 Delay_ms(1000);				//å‡ºåº“è§’åº¦ä¸ºè§’åº¦2çš„æ—¶å€™çš„è¿è¡Œæ—¶é—´ï¼Œéœ€æµ‹é‡
+			 while(!openMV1_mes){}			//ç›´åˆ°è¯†åˆ«åˆ°çº¿ï¼Œè·³å‡ºå¾ªç¯æ‰§è¡Œpidè®¡ç®—
 			 
-			 //³ö¿â³µÉí°ÚÕı£¬¼ÌĞøÑ²Ïß£¬²¢Ê¹ÄÜopenmv2
-			 //½×¶Î7
-			 SERIAL_sendBYTE(USART3,3);
-			 linePatrol(1,100);
+			 //å‡ºåº“è½¦èº«æ‘†æ­£ï¼Œç»§ç»­å·¡çº¿ï¼Œå¹¶ä½¿èƒ½openmv2
+			 //é˜¶æ®µ7
+			 SERIAL_sendBYTE(USART3,3);		//æ¨¡å¼3ä¸ºç»§ç»­è®¡æ•°
+			 linePatrol(1,100);				//ç»§ç»­å·¡çº¿
 			 
-		
-		
-		//³ö¿â½×¶Î1£¬Ö±ĞĞ³ö¿â
+			 */
+			 
+			 
+			 
+		//å¯ä»¥ä¸ç®¡ä»¥ä¸‹ä»£ç ------------------------------
+		/*
+		//å‡ºåº“é˜¶æ®µ1ï¼Œç›´è¡Œå‡ºåº“
 		SERIAL_sendBYTE(USART3,0xFF);
 		drive_setDir(0);
 		drive_setORI(5);
 		
 				 
-		//¶æ»úĞı×ª½Ç¶ÈµÄ³ö¿â½×¶Î2£¬ÏÈÊ¹ÄÜopenmv1£¬ÔÙÑÓ³ÙÊı¾İµÄ½ÓÊÕ
-		//½×¶Î6
+		//èˆµæœºæ—‹è½¬è§’åº¦çš„å‡ºåº“é˜¶æ®µ2ï¼Œå…ˆä½¿èƒ½openmv1ï¼Œå†å»¶è¿Ÿæ•°æ®çš„æ¥æ”¶
+		//é˜¶æ®µ6
 		SERIAL_sendBYTE(USART1,1);
 		openMV1_mes=0;
 		drive_setDir(30);
@@ -186,8 +196,8 @@ int main(void)
 		while(!openMV1_mes){}
 			OLED_ShowNum(1,1,14,2);
 			 
-		//³ö¿â³µÉí°ÚÕı£¬¼ÌĞøÑ²Ïß£¬²¢Ê¹ÄÜopenmv2
-		//½×¶Î7
+		//å‡ºåº“è½¦èº«æ‘†æ­£ï¼Œç»§ç»­å·¡çº¿ï¼Œå¹¶ä½¿èƒ½openmv2
+		//é˜¶æ®µ7
 		SERIAL_sendBYTE(USART3,3);
 			OLED_ShowNum(1,1,15,2);
 		linePatrol(1,100);
@@ -203,7 +213,7 @@ void resetStartAngle(){
 
 		TIM_Cmd(TIM3,DISABLE);
 
-	//½Ç¶ÈPID
+	//è§’åº¦PID
 
 	while(!Key_GetNum())
 	{
