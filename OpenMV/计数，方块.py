@@ -36,7 +36,7 @@ print("开始识别...")
 const_value1= 1  #计数识别，达到个数发1
 const_value2= 2  #点位识别，找到发2
 
-Status=0
+Status=1
 
 
 def usartScan():
@@ -52,7 +52,7 @@ def usartScan():
 
 def detLoop(countMAX, roi):
     black_blob_count=0      # 记录识别到的黑色色块数
-    while (black_blob_count <10):
+    while (black_blob_count <countMAX):
         clock.tick()
         img = sensor.snapshot()  # 持续刷新，防止图像卡住
         img.draw_rectangle(roi, color=(255, 0, 0))  # 在屏幕上画出ROI区域，便于调试观察
@@ -73,8 +73,9 @@ def detLoop(countMAX, roi):
             # 根据识别次数控制休眠
             if black_blob_count == countMAX :
                 uart.write(bytearray([const_value1]))  # 发送一个字节
-                print("达到特殊计数 {} 次，长时间休眠中...".format(black_blob_count))
+                print("达到特殊计数 {} 次，退出循环".format(black_blob_count))
                 time.sleep(long_sleep)
+               
 
             else:
                 print("短暂休眠...")
@@ -126,11 +127,13 @@ while True:
     usartScan() #更新
     print("当前Status值为 {} ".format(Status))
     if  Status == 1:
-        roi = (120, 100, 20, 16)
+        roi = (140, 130, 20, 16)
         detLoop(4, roi)
+        #Status=0
     elif Status == 2:
-        roi = (100, 100, 20, 16)
+        roi = (165, 180, 20, 16)
         findblob(roi)
+        Status=0
     elif Status == 3:
         roi = (100, 100, 20, 16)
         detLoop(6, roi)
