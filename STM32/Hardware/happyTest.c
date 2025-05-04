@@ -123,6 +123,7 @@ void ServoScope(){
 			}
 			case 3:servoIND-=5;
 		}
+		OLED_ShowNum(1,1,openMV1_mes,5);
 		OLED_ShowSignedNum(3,1,servoIND,5);
 		drive_setDir(servoIND);
 		
