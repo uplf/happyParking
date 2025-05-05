@@ -9,7 +9,7 @@
 void LED_Init(void)
 {
 	PIN_setMODE(GPIOC,GPIO_Pin_13|GPIO_Pin_14|GPIO_Pin_15,_OUTPUT);
-	PIN_writeBIT(GPIOC,GPIO_Pin_13,_HIGH);
+	PIN_writeBIT(GPIOC,GPIO_Pin_13|GPIO_Pin_14,_HIGH);
 	PIN_writeBIT(GPIOC,GPIO_Pin_15,_LOW);
 }
 void BUZZER_ON(void){

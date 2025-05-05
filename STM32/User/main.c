@@ -40,10 +40,10 @@ void Setup(void){
 
 int8_t CHOICE;
 
-void testUSART(){
-	while(!Key_GetNum()){
-		
-	}
+void WAMtest(void){
+	hardwareTest();
+	ServoScope();
+	openMVTest();
 }
 
 void Delay_line(uint32_t xms)
@@ -63,8 +63,17 @@ void Delay_line(uint32_t xms)
 int main(void)
 {
 	Setup();
+	drive_setDir(0);
+	drive_setORI(5);
+	while(!Key_GetNum()){}
+			drive_setORI(3);
+	while(!Key_GetNum()){}
+			drive_setORI(-5);
+	while(!Key_GetNum()){}
+			drive_setORI(-3);
+	while(!Key_GetNum()){}
+	WAMtest();
 	
-	//ServoScope();
 	drive_setDir(0); 
 	openMV1Status=1;
 	
@@ -96,11 +105,15 @@ int main(void)
 		
  			 SERIAL_sendBYTE(USART1,1);
 		     OLED_ShowNum(1,1,2,2);
-			 openMV1_mes=151;
-		     drive_setDir(-10);
+			 openMV1_mes=0;
+		     drive_setDir(-30);
 			 drive_setORI(3);
-		     while(openMV1_mes>150){}
-		
+			 delay_ms(600);
+		     drive_setDir(10);
+			 drive_setORI(3);
+			 delay_ms(400);
+		     while(!openMV1_mes){}
+		     
 		
 			 SERIAL_sendBYTE(USART3,1);
 			 drive_setORI(3);

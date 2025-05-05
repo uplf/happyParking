@@ -50,7 +50,7 @@ void hardwareTest(){
 		drive_setORI(testHelper);
 		Delay_ms(500);
 	}
-	drive_setORI(2);
+	drive_setORI(0);
 	for(testHelper=-50;testHelper<=50;testHelper++){
 		drive_setDir(testHelper);
 		Delay_ms(10);
@@ -82,16 +82,15 @@ void hardwareTest(){
 void openMVTest(){
 	int m=0,n=0;
 	openMV_init();
-	OLED_ShowString(1,1,"openMV_Test 1");
-	//OLED_ShowString(4,1,"pressAnyKey ");
+	OLED_ShowString(1,1,"6/openMV_Test");
+	//OLED_ShowString(4,1,"pressKey1 ");
 	OLED_ShowString(2,1,"rec1:");
 	OLED_ShowString(3,1,"rec2:");
 	//openMV1_send(TEST_SIG);
 	//openMV2_send(TEST_SIG);
-	while(1){
+	do{
 		n=Key_GetNum();
-		if(n==1)SERIAL_sendBYTE(USART3,1);
-		if(n==2)SERIAL_sendBYTE(USART3,2);
+		if(n==2)SERIAL_sendBYTE(USART1,1);
 		if(n==3)SERIAL_sendBYTE(USART3,1);
 		OLED_ShowNum(2,6,openMV1_mes,8);
 		OLED_ShowNum(3,6,openMV2_mes,8);
@@ -99,7 +98,8 @@ void openMVTest(){
 		OLED_ShowNum(4,8,(openMV2_mes==2),1);
 		if(n)OLED_ShowNum(4,10,n,1);
 		m=!m;
-	}
+	}while(n!=1);
+	OLED_Clear();
 
 }
 
@@ -107,6 +107,7 @@ void openMVTest(){
 void ServoScope(){
 	int16_t servoIND=0;
 	int8_t keyIND=0;
+	OLED_ShowString(1,1,"7/Servo_Test");
 	while(1){
 		keyIND=Key_GetNum();
 		switch(keyIND)
@@ -115,10 +116,10 @@ void ServoScope(){
 				continue;
 			case 1:{
 				servoIND+=5;
-				break;
+				return;
 			}
 			case 2:{
-				servoIND+=1;
+				servoIND+=5;
 				break;
 			}
 			case 3:servoIND-=5;
