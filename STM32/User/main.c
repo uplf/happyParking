@@ -89,17 +89,21 @@ int main(void)
 		OLED_ShowNum(3,6,openMV2_mes,8);
 		}while(CHOICE!=1);
 		OLED_Clear();
+		
+		
+		
+		
 		 //openMVTest();
 			 
 			 drive_setDir(0);
 		
- 			 SERIAL_sendBYTE(USART1,1);
-		   OLED_ShowNum(1,1,2,2);
+ 			
+			OLED_ShowNum(1,1,2,2);
 			 openMV1_mes=0;
 		   
 		   drive_setDir(-50);
-			 drive_setORI(2);
-			 delay_ms(1700);
+			 drive_setORI(3);
+			 delay_ms(880);
 		
 		   drive_setDir(50);
 			 drive_setORI(2);
@@ -111,9 +115,9 @@ int main(void)
 		   
        while(!openMV1_mes){}
 
-		   Delay_line(800);
+		   Delay_line(450);
 		
-       SERIAL_sendBYTE(USART3,1);
+		   SERIAL_sendBYTE(USART3,1);
 			 
 					 
 			 drive_setORI(4);
@@ -121,56 +125,44 @@ int main(void)
 			 linePatrol(1,100);//openMV1巡线，直到收到2的信号：1
 				
 			 
-       //测试
-       drive_setDir(0);
-			 drive_setORI(0);				 
-			 while(1){}
-			 //测试
+
 			 
 			 //BUZZER_ON();
 		   OLED_ShowNum(3,6,openMV2_mes,8);
 			 OLED_ShowNum(1,1,3,2);
+			
+			 
 			 drive_setORI(0);
-				 
-			 //阶段2，初次入库
-					 
-			 drive_setDir(42);//需要调
-			 drive_setORI(-5);
-		   delay_ms(2000);
-				
-       drive_setORI(0);		//入库前停车			 
 			 delay_ms(500);
-
-					 
 			 BUZZER_ON();
 			 delay_ms(500);		 
 			 BUZZER_OFF();
 			 
-			 
-			 
-			 
-			 drive_setDir(40);//需要调试
-			 //BUZZER_OFF();
+				 
+			 //阶段2，初次入库
+					 
+			 drive_setDir(35);//需要调
 			 drive_setORI(-5);
-		   delay_ms(600);
-
-			 //阶段3，回正
-			 drive_setORI(0);
+			 delay_ms(2050);
+				
+			 
+			 drive_setORI(0);		//垂直倒车			 
 			 drive_setDir(0);
 			 drive_setORI(-5);
-			 Delay_ms(900);			//需要调
-				 
-			 //小车暂停
-			 //阶段4
+		     delay_ms(550);
+			 
+			 
+			 drive_setDir(0);    //停车
 			 drive_setORI(0);
+		        
 			 
 			 BUZZER_ON();//开蜂鸣器
-		   Delay_ms(500);
-		   BUZZER_OFF();
+		     Delay_ms(500);
+		     BUZZER_OFF();
 			 
 			 
-			 Delay_ms(1000);     //停车
-			 
+			 Delay_ms(1000);   //5s要求
+
 
 
 				 
@@ -182,42 +174,47 @@ int main(void)
 			 drive_setORI(5);
 			 OLED_ShowNum(1,1,5,2);
 			 delay_ms(500);
-			 //while(openMV2_mes!=2){};
-				 OLED_ShowNum(1,1,6,2);
-			 //drive_setORI(0);
-				 
+
+			 OLED_ShowNum(1,1,6,2);
+
 			 //舵机旋转角度的出库阶段2，先使能openmv1，再延迟数据的接收
 			 //阶段6
-			 SERIAL_sendBYTE(USART1,1);
+			 
 			 openMV1_mes=0;
 			 drive_setDir(43);
 			 drive_setORI(3);
 			 Delay_ms(1500);				//需要调
-				 OLED_ShowNum(1,1,7,2);
-
+			 OLED_ShowNum(1,1,7,2);
+             
+			 
+			
 			 while(!openMV1_mes){}
 				 OLED_ShowNum(1,1,8,2);
 			 
-			Delay_line(1000);
+			 Delay_line(850);//原1000
 				 
-			 /*
-			 Delay_us(UPSampleRate);
-			 UPPID.current=openMV1_mes;
-			 pidCalc(&UPPID,&UPLF_DIR);
-			 drive_setDir(UPLF_DIR);
-			 delay_ms(1500);
-			*/
+			 
+				 
 			 //出库车身摆正，继续巡线，并使能openmv2
 			 //阶段7
-			 SERIAL_sendBYTE(USART3,2);
-			 drive_setORI(3);
-			 linePatrol(1,100);
 			 
-			// 测试代码
-			drive_setDir(0); 
-			drive_setORI(0);	
-			while(1){
-			};
+			 OLED_ShowNum(2,1,555,3);
+				 
+			 openMV2_mes=0;
+			 SERIAL_sendBYTE(USART3,2);
+				 
+			 OLED_ShowNum(3,1,777,3);
+			 
+			 drive_setORI(5);
+       
+			 linePatrol(1,100);
+				 
+			 OLED_ShowNum(1,1,666,3);
+			 
+
+			
+			
+		
 			//侧方时注释
 			 
 			
@@ -227,7 +224,7 @@ int main(void)
 			 //---------------------------------------------
 			 //侧方停车逻辑
 			 //阶段2-1 继续巡线，直到收到2的信号：1
-			 //SERIAL_sendBYTE(USART1,1);		//可视为分段测试，再次给openmv1发送1使其巡线
+			 
 			 //while(!Key_GetNum()){}			//按下按钮才运行openmv2的模式
 			 //SERIAL_sendBYTE(USART3,3);		//模式3为数侧方库边数
 			 
@@ -237,24 +234,25 @@ int main(void)
 			 //舵机回正
 			 drive_setDir(0); 
 			 drive_setORI(3);	
-			 delay_ms(570);
-			 drive_setDir(45);			//初次入库
-			 drive_setORI(-5);
-			 delay_ms(1600);
+			 delay_ms(370);
 			 
 			 
 			 drive_setORI(0);			//入库前停顿1s
-			 delay_ms(500);
-			 
+			 delay_ms(500);			 
 			 BUZZER_ON();               //入库响
 			 Delay_ms(500);  
 			 BUZZER_OFF();
 			 
 			 
+			 drive_setDir(44);			//初次入库
+			 drive_setORI(-5);
+			 delay_ms(1500);
+			 
+
 			 	 
 			 drive_setDir(-50);			//舵机左打，二次入库
 			 drive_setORI(-5);			//停顿，用于调试
-			 delay_ms(1200);
+			 delay_ms(1230);
 			 
 			 
 			 drive_setDir(0);			  //停顿，用于调试
@@ -269,7 +267,7 @@ int main(void)
 			 
 			 drive_setDir(-50);         //出库
 			 drive_setORI(5);
-			 delay_ms(600);
+			 delay_ms(650);
 			 drive_setDir(45);			
 			 drive_setORI(5);
 			 delay_ms(750);

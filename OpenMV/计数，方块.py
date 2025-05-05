@@ -28,6 +28,8 @@ max_area = 10000
 # 通用短暂休眠时间 (秒)
 short_sleep = 0.3
 
+short_sleep2 = 0.5
+
 # 达到3或5次后的长休眠时间 (秒)
 long_sleep = 1
 
@@ -87,6 +89,44 @@ def detLoop(countMAX, roi):
             pass
     print("退出计数")
 
+def detLoop2(countMAX, roi):
+    black_blob_count=0      # 记录识别到的黑色色块数
+    while (black_blob_count <countMAX):
+        clock.tick()
+        img = sensor.snapshot()  # 持续刷新，防止图像卡住
+        img.draw_rectangle(roi, color=(255, 0, 0))  # 在屏幕上画出ROI区域，便于调试观察
+        # 只在ROI区域内寻找色块
+        blobs = img.find_blobs([black_threshold], roi=roi, area_threshold=min_area, pixels_threshold=min_area, merge=True)
+
+        # 过滤符合大小要求的色块
+        valid_blobs = [b for b in blobs if min_area <= b.pixels() <= max_area]
+        if valid_blobs:
+            black_blob_count += 1
+            print("检测到黑色色块，总计：", black_blob_count)
+
+            # 在图像上画出识别到的色块
+            for blob in valid_blobs:
+                img.draw_rectangle(blob.rect(), color=(0,255,0))
+                img.draw_cross(blob.cx(), blob.cy(), color=(0,255,0))
+
+            # 根据识别次数控制休眠
+            if black_blob_count == countMAX :
+                uart.write(bytearray([const_value1]))  # 发送一个字节
+                print("达到特殊计数 {} 次，退出循环".format(black_blob_count))
+                time.sleep(long_sleep)
+
+
+
+            else:
+                print("短暂休眠...")
+                time.sleep(short_sleep2)
+
+        else:
+            # 即使没有找到色块，也继续刷新，避免摄像头卡死
+            pass
+    print("退出计数")
+
+
 def findblob(roi):
     # 点位识别函数
     print("识别点位")
@@ -130,15 +170,15 @@ while True:
     print("当前Status值为 {} ".format(Status))
     if  Status == 1:
         roi = (155, 155, 20, 16)
-        detLoop(4, roi)
+        detLoop(3, roi)
         Status=0
 #    elif Status == 2:
 #        roi = (153, 162, 20, 16)
 #        findblob(roi)
 #        Status=0
     elif Status == 2:
-        roi = (155, 170, 20, 16)
-        detLoop(1, roi)
+        roi = (155, 140, 20, 16)
+        detLoop2(3, roi)
         Status=0
 
     else:
