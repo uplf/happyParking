@@ -32,7 +32,6 @@ void Setup(void){
 	intInit();
 	LED_Init();
 	openMV_init();
-	//W25Q64_Init();
 
 }
 
@@ -40,10 +39,10 @@ void Setup(void){
 
 int8_t CHOICE;
 
-void WAMtest(void){
-	hardwareTest();
-	ServoScope();
-	openMVTest();
+void testUSART(){
+	while(!Key_GetNum()){
+		
+	}
 }
 
 void Delay_line(uint32_t xms)
@@ -63,17 +62,8 @@ void Delay_line(uint32_t xms)
 int main(void)
 {
 	Setup();
-	drive_setDir(0);
-	drive_setORI(5);
-	while(!Key_GetNum()){}
-			drive_setORI(3);
-	while(!Key_GetNum()){}
-			drive_setORI(-5);
-	while(!Key_GetNum()){}
-			drive_setORI(-3);
-	while(!Key_GetNum()){}
-	WAMtest();
 	
+	//ServoScope();
 	drive_setDir(0); 
 	openMV1Status=1;
 	
@@ -104,31 +94,65 @@ int main(void)
 			 drive_setDir(0);
 		
  			 SERIAL_sendBYTE(USART1,1);
-		     OLED_ShowNum(1,1,2,2);
+		   OLED_ShowNum(1,1,2,2);
 			 openMV1_mes=0;
-		     drive_setDir(-30);
-			 drive_setORI(3);
-			 delay_ms(600);
-		     drive_setDir(10);
-			 drive_setORI(3);
-			 delay_ms(400);
-		     while(!openMV1_mes){}
-		     
+		   
+		   drive_setDir(-50);
+			 drive_setORI(2);
+			 delay_ms(1700);
 		
-			 SERIAL_sendBYTE(USART3,1);
-			 drive_setORI(3);
+		   drive_setDir(50);
+			 drive_setORI(2);
+			 delay_ms(1600);
+		
+		   drive_setDir(5);
+			 drive_setORI(2);
+			 delay_ms(400);
+		   
+       while(!openMV1_mes){}
+
+		   Delay_line(800);
+		
+       SERIAL_sendBYTE(USART3,1);
+			 
+					 
+			 drive_setORI(4);
+			 
 			 linePatrol(1,100);//openMV1巡线，直到收到2的信号：1
+				
+			 
+       //测试
+       drive_setDir(0);
+			 drive_setORI(0);				 
+			 while(1){}
+			 //测试
+			 
 			 //BUZZER_ON();
-		     OLED_ShowNum(3,6,openMV2_mes,8);
+		   OLED_ShowNum(3,6,openMV2_mes,8);
 			 OLED_ShowNum(1,1,3,2);
 			 drive_setORI(0);
 				 
 			 //阶段2，初次入库
-			 //SERIAL_sendBYTE(USART3,2);
-			 drive_setDir(43);//需要调试
+					 
+			 drive_setDir(42);//需要调
+			 drive_setORI(-5);
+		   delay_ms(2000);
+				
+       drive_setORI(0);		//入库前停车			 
+			 delay_ms(500);
+
+					 
+			 BUZZER_ON();
+			 delay_ms(500);		 
+			 BUZZER_OFF();
+			 
+			 
+			 
+			 
+			 drive_setDir(40);//需要调试
 			 //BUZZER_OFF();
-			 drive_setORI(-4);
-		     delay_ms(2600);
+			 drive_setORI(-5);
+		   delay_ms(600);
 
 			 //阶段3，回正
 			 drive_setORI(0);
@@ -141,14 +165,13 @@ int main(void)
 			 drive_setORI(0);
 			 
 			 BUZZER_ON();//开蜂鸣器
-		     Delay_ms(500);
-		     BUZZER_OFF();
+		   Delay_ms(500);
+		   BUZZER_OFF();
 			 
-			 Delay_ms(1000);
 			 
-			 BUZZER_ON();//undefined
-		     Delay_ms(500);
-		     BUZZER_OFF();
+			 Delay_ms(1000);     //停车
+			 
+
 
 				 
 			 //车头摆正的出库阶段1
@@ -174,7 +197,8 @@ int main(void)
 
 			 while(!openMV1_mes){}
 				 OLED_ShowNum(1,1,8,2);
-			 Delay_line(1800);
+			 
+			Delay_line(1000);
 				 
 			 /*
 			 Delay_us(UPSampleRate);
@@ -194,6 +218,7 @@ int main(void)
 			drive_setORI(0);	
 			while(1){
 			};
+			//侧方时注释
 			 
 			
 	
@@ -217,16 +242,29 @@ int main(void)
 			 drive_setORI(-5);
 			 delay_ms(1600);
 			 
+			 
+			 drive_setORI(0);			//入库前停顿1s
+			 delay_ms(500);
+			 
+			 BUZZER_ON();               //入库响
+			 Delay_ms(500);  
+			 BUZZER_OFF();
+			 
+			 
+			 	 
 			 drive_setDir(-50);			//舵机左打，二次入库
 			 drive_setORI(-5);			//停顿，用于调试
 			 delay_ms(1200);
-			 drive_setDir(0);			//舵机左打，二次入库
-			 drive_setORI(0);			//停顿，用于调试
 			 
-			 BUZZER_ON();               //undefined//停车
-			 Delay_ms(1000);  
+			 
+			 drive_setDir(0);			  //停顿，用于调试
+			 drive_setORI(0);			
+			 
+			 BUZZER_ON();               //停车响
+			 Delay_ms(500);  
 			 BUZZER_OFF();
-			 Delay_ms(1000);
+			 
+			 Delay_ms(1000);           //停车
 			 
 			 
 			 drive_setDir(-50);         //出库

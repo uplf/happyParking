@@ -137,8 +137,8 @@ while True:
 #        findblob(roi)
 #        Status=0
     elif Status == 2:
-        roi = (155, 160, 20, 16)
-        detLoop(3, roi)
+        roi = (155, 170, 20, 16)
+        detLoop(1, roi)
         Status=0
 
     else:
